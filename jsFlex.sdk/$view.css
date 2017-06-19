@@ -1,0 +1,612 @@
+@charset "UTF-8";
+/*
+这里是整个项目的预设文件
+ */
+/*字体自适应设置*/
+html {
+  font-size: 62.5%; }
+
+@media only screen and (min-width: 321px) {
+  html {
+    font-size: 62.5% !important; } }
+@media only screen and (min-width: 361px) {
+  html {
+    font-size: 70.31% !important; } }
+@media only screen and (min-width: 376px) {
+  html {
+    font-size: 73.24% !important; } }
+@media only screen and (min-width: 481px) {
+  html {
+    font-size: 94% !important; } }
+@media only screen and (min-width: 561px) {
+  html {
+    font-size: 109% !important; } }
+@media only screen and (min-width: 641px) {
+  html {
+    font-size: 125% !important; } }
+@media only screen and (min-width: 721px) {
+  html {
+    font-size: 140.6% !important; } }
+@media only screen and (min-width: 769px) {
+  html {
+    font-size: 150% !important; } }
+@media only screen and (min-width: 801px) {
+  html {
+    font-size: 156.25% !important; } }
+@media only screen and (min-width: 981px) {
+  html {
+    font-size: 191.4% !important; } }
+@media only screen and (min-width: 1081px) {
+  html {
+    font-size: 210.9% !important; } }
+/*公共样式定义开始*/
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0; }
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0; }
+
+/*定义全局样式，例如默认字体、背景等*/
+.Application {
+  font-family: "Microsoft YaHei UI", "Microsoft YaHei", Helvetica, Arial, sans-serif;
+  font-size: 1.4rem;
+  background-color: #F5F6F7;
+  color: #151E21;
+  line-height: 2.4rem;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  min-width: 320px;
+  /*实现等宽布局*/
+  /*自动等宽布局*/
+  /*自动等宽布局头部选择*/ }
+  .Application * {
+    margin: 0;
+    padding: 0; }
+  .Application h1, .Application h2, .Application h3, .Application h4, .Application h5, .Application h6 {
+    font-size: 100%;
+    font-weight: normal; }
+  .Application em, .Application i {
+    font-style: normal; }
+  .Application li {
+    list-style: none; }
+  .Application a {
+    text-decoration: none;
+    color: #333333; }
+  .Application a:hover {
+    text-decoration: underline;
+    color: #363636; }
+  .Application img {
+    max-width: 100%;
+    vertical-align: middle;
+    border: 0; }
+  .Application input {
+    font-size: 100%; }
+  .Application button {
+    font-size: 100%; }
+  .Application .HeaderNavigation {
+    background-color: #FFFFFF;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 300;
+    left: 0;
+    right: 0; }
+  .Application .FooterNavigation {
+    background-color: #F5F6F7;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 300;
+    left: 0;
+    right: 0; }
+    .Application .FooterNavigation .Button {
+      height: 4.4rem;
+      background-color: #151E21;
+      color: #FFFFFF;
+      width: 100%; }
+  .Application .ViewStack {
+    position: relative;
+    display: block; }
+    .Application .ViewStack:after {
+      content: " ";
+      display: block;
+      height: 0;
+      clear: both;
+      visibility: hidden;
+      overflow: hidden; }
+  .Application .ViewContent {
+    position: relative;
+    background-color: #FFFFFF;
+    display: none; }
+    .Application .ViewContent:after {
+      content: " ";
+      display: block;
+      height: 0;
+      clear: both;
+      visibility: hidden;
+      overflow: hidden; }
+  .Application .BorderContainer {
+    position: relative; }
+    .Application .BorderContainer:after {
+      content: " ";
+      display: block;
+      height: 0;
+      clear: both;
+      visibility: hidden;
+      overflow: hidden; }
+  .Application .VGroup {
+    /*纵向布局*/
+    position: relative; }
+    .Application .VGroup:after {
+      content: " ";
+      display: block;
+      height: 0;
+      clear: both;
+      visibility: hidden;
+      overflow: hidden; }
+    .Application .VGroup > * {
+      display: block; }
+  .Application .HGroup {
+    /*横向布局*/
+    position: relative; }
+    .Application .HGroup:after {
+      content: " ";
+      display: block;
+      height: 0;
+      clear: both;
+      visibility: hidden;
+      overflow: hidden; }
+    .Application .HGroup > * {
+      display: inline-block; }
+    .Application .HGroup > .elementLeft {
+      float: left; }
+    .Application .HGroup > .elementCenter {
+      float: left; }
+    .Application .HGroup > .elementRight {
+      float: right; }
+  .Application .TileGroup {
+    position: relative; }
+    .Application .TileGroup:after {
+      content: " ";
+      display: block;
+      height: 0;
+      clear: both;
+      visibility: hidden;
+      overflow: hidden; }
+    .Application .TileGroup > * {
+      display: inline-block; }
+  .Application .TextInput {
+    /*文本输入样式控制*/ }
+  .Application .Label {
+    /*字体样式控制*/ }
+    .Application .Label.smallLabel {
+      font-size: 1.2rem; }
+    .Application .Label.bigLabel {
+      font-size: 1.6rem; }
+  .Application .LinkButton {
+    /*LinkButton 控件是没有边框的 Button 控件，当用户将鼠标移动到该控件位置时，其内容将加亮显示。*/
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0; }
+  .Application .Button {
+    /*Button 控件是常用的矩形按钮。Button 控件看起来似乎可以按压。控件表面可以包含文本标签和（或）图标。*/
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0; }
+  .Application .Line {
+    background-color: #ADADAD;
+    height: 0.1rem;
+    display: block; }
+  .Application .Space {
+    background-color: #F5F6F7;
+    height: 1rem;
+    display: block; }
+  .Application .ErrorTip {
+    display: none; }
+  .Application .ActiveThis {
+    display: block !important; }
+  .Application .HideThis {
+    display: none; }
+  .Application .RadioBox input[type="radio"] {
+    display: none; }
+  .Application .RadioBox input[type="radio"] + label {
+    -webkit-appearance: none;
+    border: 0.1rem solid #ADADAD;
+    display: inline-block;
+    position: relative;
+    width: 2.4rem;
+    height: 2.4rem;
+    line-height: 2.4rem;
+    vertical-align: middle;
+    margin-right: 0.5rem;
+    border-radius: 2.4rem;
+    cursor: pointer; }
+  .Application .RadioBox input[type="radio"]:checked + label {
+    color: #ADADAD; }
+  .Application .RadioBox input[type="radio"]:checked + label:after {
+    content: ' ';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2.4rem;
+    height: 2.4rem;
+    line-height: 2.4rem;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.3rem;
+    background: url("/vsystem.server.20160816/images/icons/026.png") center center no-repeat;
+    background-size: cover; }
+  .Application .RadioBox input[type="radio"][disabled] + label {
+    background-color: #CCCCCC; }
+  .Application .CheckBox input[type="checkbox"] {
+    display: none; }
+  .Application .CheckBox input[type="checkbox"] + label {
+    -webkit-appearance: none;
+    border: 0.1rem solid #ADADAD;
+    display: inline-block;
+    position: relative;
+    width: 2.4rem;
+    height: 2.4rem;
+    line-height: 2.4rem;
+    vertical-align: middle;
+    margin-right: 0.5rem;
+    border-radius: 0.4rem;
+    cursor: pointer; }
+  .Application .CheckBox input[type="checkbox"]:checked + label {
+    color: #ADADAD; }
+  .Application .CheckBox input[type="checkbox"]:checked + label:after {
+    content: ' ';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2.4rem;
+    height: 2.4rem;
+    line-height: 2.4rem;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.3rem;
+    background: url("/vsystem.server.20160816/images/icons/026.png") center center no-repeat;
+    background-size: cover; }
+  .Application .CheckBox input[type="checkbox"][disabled] + label {
+    background-color: #CCCCCC; }
+  .Application .FormGroup .FormItem {
+    display: flex;
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
+    margin-left: 1rem;
+    margin-right: 1rem; }
+    .Application .FormGroup .FormItem .Label:first-child {
+      flex: none;
+      width: 8rem; }
+    .Application .FormGroup .FormItem .TextInput {
+      flex: auto;
+      height: 2.4rem;
+      line-height: 2.4rem;
+      border: none; }
+  .Application .Row:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    overflow: hidden; }
+  .Application .Row .Column {
+    float: left; }
+  .Application .Row .Column1 {
+    float: left;
+    width: 100%; }
+  .Application .Row .Column2 {
+    float: left;
+    width: 50%; }
+  .Application .Row .Column3 {
+    float: left;
+    width: 33.33333333%; }
+  .Application .Row .Column4 {
+    float: left;
+    width: 25%; }
+  .Application .Row .Column5 {
+    float: left;
+    width: 20%; }
+  .Application .Row .Column6 {
+    float: left;
+    width: 16.66666666%; }
+  .Application .Row .Column7 {
+    float: left;
+    width: 14.28571428%; }
+  .Application .Row .Column8 {
+    float: left;
+    width: 12.5%; }
+  .Application .DataGrid {
+    margin: 1rem; }
+    .Application .DataGrid table {
+      width: 100%;
+      border-collapse: collapse; }
+      .Application .DataGrid table tr {
+        border-bottom: 0.1rem solid #ADADAD; }
+      .Application .DataGrid table tr:last-child {
+        border-bottom: none; }
+  .Application .FilterSelect {
+    border-bottom: 0.1rem solid #ADADAD; }
+    .Application .FilterSelect > .HGroup {
+      display: flex; }
+    .Application .FilterSelect .ListItem {
+      flex: auto;
+      line-height: 4.4rem;
+      border-bottom: 0.2rem solid #FFFFFF;
+      text-align: center;
+      position: relative; }
+      .Application .FilterSelect .ListItem .Number {
+        position: absolute;
+        right: 2%;
+        top: 1rem;
+        font-size: 1.2rem;
+        background-color: #ADADAD;
+        color: #FFFFFF;
+        border-radius: 2rem;
+        width: 1.4rem;
+        height: 1.4rem;
+        line-height: 1.4rem; }
+    .Application .FilterSelect .ListItem.Hover {
+      border-bottom: 0.2rem solid #D40202;
+      color: #D40202; }
+      .Application .FilterSelect .ListItem.Hover .Number {
+        background-color: #D40202; }
+  .Application .NumericStepper:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    overflow: hidden; }
+  .Application .NumericStepper input {
+    float: left;
+    height: 2.4rem;
+    width: 3.2rem;
+    margin: 0;
+    padding: 0;
+    border: 0.1rem solid #ADADAD;
+    text-align: center; }
+  .Application .NumericStepper .Button {
+    float: left;
+    height: 2.6rem;
+    line-height: 2rem;
+    width: 2.6rem;
+    margin: 0;
+    padding: 0;
+    background-color: #151E21;
+    color: #FFFFFF;
+    font-size: 2rem;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle; }
+  .Application .PopUp {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: auto;
+    z-index: 100;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none; }
+    .Application .PopUp .BorderContainer {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      z-index: 500;
+      -webkit-backface-visibility: hidden;
+      -moz-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-transform: translateX(-50%) translateY(-50%);
+      -moz-transform: translateX(-50%) translateY(-50%);
+      -ms-transform: translateX(-50%) translateY(-50%);
+      transform: translateX(-50%) translateY(-50%);
+      background-color: #FFFFFF;
+      width: 75%;
+      height: 60%;
+      margin: 0;
+      -moz-border-radius: 1rem;
+      -webkit-border-radius: 1rem;
+      border-radius: 1rem; }
+      .Application .PopUp .BorderContainer .ContentContainer {
+        height: 100%;
+        overflow: hidden; }
+      .Application .PopUp .BorderContainer .Close {
+        display: inline-block;
+        width: 2rem;
+        height: 2rem;
+        overflow: hidden;
+        position: absolute;
+        z-index: 500;
+        top: -0.5rem;
+        right: -0.5rem;
+        cursor: pointer;
+        background: url("/vsystem.server.20160816/images/icons/022.png") center center no-repeat;
+        background-size: cover; }
+  .Application .Toast {
+    font-size: 1rem;
+    width: auto;
+    position: absolute;
+    z-index: 999;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center; }
+    .Application .Toast > .item {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      background: rgba(21, 30, 33, 0.8);
+      height: 2rem;
+      line-height: 2rem;
+      border-radius: 0.15rem; }
+      .Application .Toast > .item.into {
+        color: #FFFFFF;
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0) scale(1.185);
+        transform: translate3d(0, 0, 0) scale(1.185);
+        -webkit-transition-property: -webkit-transform, opacity;
+        transition-property: transform, opacity;
+        animation: "in" 300ms 1 alternate;
+        -webkit-animation: "in" 300ms 1 alternate;
+        -moz-animation: "in" 300ms 1 alternate;
+        -o-animation: "in" 300ms 1 alternate; }
+      .Application .Toast > .item.exit {
+        color: transparent;
+        opacity: 0;
+        -webkit-transform: translate3d(0, 0, 0) scale(1);
+        transform: translate3d(0, 0, 0) scale(1);
+        -webkit-transition-property: -webkit-transform, opacity;
+        transition-property: transform, opacity;
+        animation: "out" 300ms 1 alternate;
+        -webkit-animation: "out" 300ms 1 alternate;
+        -moz-animation: "out" 300ms 1 alternate;
+        -o-animation: "out" 300ms 1 alternate; }
+@keyframes in {
+  from {
+    color: transparent;
+    opacity: 0;
+    -webkit-transform: translate3d(0, 0, 0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1); }
+  to {
+    color: #FFFFFF;
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0) scale(1.185);
+    transform: translate3d(0, 0, 0) scale(1.185); } }
+@-moz-keyframes in {
+  from {
+    color: transparent;
+    opacity: 0;
+    -webkit-transform: translate3d(0, 0, 0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1); }
+  to {
+    color: #FFFFFF;
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0) scale(1.185);
+    transform: translate3d(0, 0, 0) scale(1.185); } }
+@-webkit-keyframes in {
+  from {
+    color: transparent;
+    opacity: 0;
+    -webkit-transform: translate3d(0, 0, 0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1); }
+  to {
+    color: #FFFFFF;
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0) scale(1.185);
+    transform: translate3d(0, 0, 0) scale(1.185); } }
+@-o-keyframes in {
+  from {
+    color: transparent;
+    opacity: 0;
+    -webkit-transform: translate3d(0, 0, 0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1); }
+  to {
+    color: #FFFFFF;
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0) scale(1.185);
+    transform: translate3d(0, 0, 0) scale(1.185); } }
+@keyframes out {
+  from {
+    color: #FFFFFF;
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0) scale(1.185);
+    transform: translate3d(0, 0, 0) scale(1.185); }
+  to {
+    color: transparent;
+    opacity: 0;
+    -webkit-transform: translate3d(0, 0, 0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1); } }
+@-moz-keyframes out {
+  from {
+    color: #FFFFFF;
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0) scale(1.185);
+    transform: translate3d(0, 0, 0) scale(1.185); }
+  to {
+    color: transparent;
+    opacity: 0;
+    -webkit-transform: translate3d(0, 0, 0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1); } }
+@-webkit-keyframes out {
+  from {
+    color: #FFFFFF;
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0) scale(1.185);
+    transform: translate3d(0, 0, 0) scale(1.185); }
+  to {
+    color: transparent;
+    opacity: 0;
+    -webkit-transform: translate3d(0, 0, 0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1); } }
+@-o-keyframes out {
+  from {
+    color: #FFFFFF;
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0) scale(1.185);
+    transform: translate3d(0, 0, 0) scale(1.185); }
+  to {
+    color: transparent;
+    opacity: 0;
+    -webkit-transform: translate3d(0, 0, 0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1); } }
+  .Application .HorizontalLayout {
+    white-space: nowrap; }
+    .Application .HorizontalLayout > * {
+      position: static;
+      display: inline-block; }
+    .Application .HorizontalLayout.top > * {
+      vertical-align: top; }
+    .Application .HorizontalLayout.middle > * {
+      vertical-align: middle; }
+    .Application .HorizontalLayout.bottom > * {
+      vertical-align: bottom; }
+    .Application .HorizontalLayout.center {
+      text-align: center; }
+    .Application .HorizontalLayout.left {
+      text-align: left; }
+    .Application .HorizontalLayout.right {
+      text-align: right; }
+  .Application .VerticalLayout {
+    white-space: nowrap; }
+    .Application .VerticalLayout > * {
+      position: static;
+      display: block; }
+    .Application .VerticalLayout.top > * {
+      vertical-align: top; }
+    .Application .VerticalLayout.middle > * {
+      vertical-align: middle; }
+    .Application .VerticalLayout.bottom > * {
+      vertical-align: bottom; }
+    .Application .VerticalLayout.center {
+      text-align: center; }
+    .Application .VerticalLayout.left {
+      text-align: left; }
+    .Application .VerticalLayout.right {
+      text-align: right; }
+  .Application .noticeLabel {
+    padding: 2rem 2rem 3rem 2rem; }
+    .Application .noticeLabel h5 {
+      font-size: 1.6rem;
+      padding-bottom: 1.5rem; }
+
+/*# sourceMappingURL=$view.css.map */
