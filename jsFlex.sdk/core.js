@@ -216,12 +216,11 @@
 
 //            将输入的路径解析为包。
     var $space=function ($path,$create) {
-        if($create===undefined)$create=true;
+        $create=$create||true;
         var _ns=($path instanceof Array)?$path:$path.trim().split('.');
         if(_ns.length===0)_ns.unshift(Singleton.LOCAL);
         var _s=$dock;
         var _o=Singleton;
-
         _ns.some(function ($n) {
             $n=$n.trim();
             if($n==='*'){
@@ -236,8 +235,6 @@
             };
             _o=_s=_s[$n];
         });
-
-        //返回的数组，用在$import中
         return _o;
     };
 
@@ -277,15 +274,15 @@
     };
 
     var $double=function () {};
-
     var $builder=function () {
         var $self=this.data;
-        // if($self.initialized.static===1)$self.initialized.static=0;
         Array.prototype.forEach.call(arguments,function ($) {
             if($.constructor === Function){
                 $self.initialize=$;
+                $self.initialized.initializer=1;
             }else if($.constructor === Object){
                 $self.prototype=$;
+                $self.initialized.prototype=1;
             };
         });
         //没有构造函数或者属性
@@ -294,7 +291,10 @@
 //                    计算依赖包是否都已经载入
             $self.initialized.request=1;
             $self.imports.forEach(function (_) {
-                $self.initialized.request*=_.__GLOBAL__.initialized.class+_.__GLOBAL__.initialized.static;
+                $self.initialized.request*=_.__GLOBAL__.initialized.class+function ($) {
+                        // 当导入了static，并且构造函数和方法都没有改变时，才是纯静态类
+                        return $.static*($.initializer===0&&$.prototype===0)?1:0;
+                    }(_.__GLOBAL__.initialized);
             });
 
             if($self.initialized.request===0){
@@ -350,6 +350,7 @@
         return $self.class;
     };
 
+
     var $create=function (name) {
         this.data.name = name;
         if(this.data.space.hasOwnProperty(name)===false) {
@@ -384,7 +385,7 @@
         };
     };
 
-    var $definde=(function ($) {
+    var $define=(function ($) {
         for(var _ in $)$[_]=Object.getOwnPropertyDescriptor($,_);
         return $;
     })({
@@ -407,13 +408,14 @@
             // console.log(arguments[0]);
             // 在执行调用的时候，才表示该函数需要初始化，即static不需要初始化
             return $builder.apply(_,arguments);
-        },$definde);
+        },$define);
         _.data={
             initialize:function () {},
             prototype:{},
-            initialized:{class:0,request:1,static:0},//class尚未初始化，依赖类准备就绪，没有静态属性
+            initialized:{class:0,request:1,static:0,initializer:0,prototype:0},//class尚未初始化，依赖类准备就绪，没有静态属性
             imports:[],
         };
+
         Array.prototype.forEach.call(arguments.length===0?[Singleton.LOCAL]:arguments,function ($) {
             if($.constructor === String || $.constructor === Array){
                 _.data.path=$.constructor===String?
@@ -425,4 +427,3 @@
         return _;
     };
 })(this);
-
