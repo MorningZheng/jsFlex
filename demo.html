@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--- xmlns引入了一个包：antetype，并将它定义为a，即前置符号为a的标签，指向了antetype这个包。 -->
+<!--- antetype是一个实现了可视化组件的包名称 -->
+<html lang="en" xmlns:a="antetype">
+<head>
+    <meta Charset="UTF-8">
+    <title>一个测试</title>
+
+    <!--- 以下不解释 -->
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="">
+
+    <!--- 引入jsFlex的核心文件 -->
+    <script type="text/javascript" charset="UTF-8" src="/vsystem.server.20160816/plugins/jsFlex.sdk/core.js"></script>
+    <!--- 开始愉快的变成吧^_^ -->
+    <script type="text/javascript" charset="UTF-8">
+
+        $main.useStorge=false;
+
+        /**
+         * 不解释
+         */
+        $import('mx.utils.*');
+        $import('flash.net.*');
+
+        $main(function () {
+            console.log(new URLLoader);
+
+
+//            mx.utils.flex.local();
+//            mx.utils.router.boot(function () {
+//            });
+
+            /**
+             * 这里可以看出，jsFlex的启动机制与flash相一致:
+             * 第一帧：下载应用程序（HTML）
+             * 第二帧：初始化环境
+             * 第三帧：启动应用程序
+             */
+        });
+    </script>
+</head>
+<body>
+<a:Application id="zc">
+    <a:CheckBox id="asd" label="这里是一个小测试"></a:CheckBox>
+</a:Application>
+</body>
+</html>
