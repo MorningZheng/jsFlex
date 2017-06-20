@@ -1,0 +1,702 @@
+@charset "UTF-8";
+/*
+这里是整个项目的预设文件
+ */
+/*页面公用样式*/
+.Application .normalHeaderNavigation > .HGroup {
+  padding: 0.5rem 1.5rem; }
+.Application .normalHeaderNavigation .elementLeft {
+  height: 3.4rem;
+  width: 3.4rem; }
+  .Application .normalHeaderNavigation .elementLeft img {
+    width: 2.6rem; }
+.Application .normalHeaderNavigation .elementRight .LinkButton {
+  margin-left: 1rem;
+  height: 3.4rem;
+  background-color: #FFFFFF;
+  color: #333333; }
+.Application .payFooterNavigation {
+  border-top: 0.1rem solid #CCCCCC; }
+  .Application .payFooterNavigation .Button {
+    width: 8rem;
+    height: 4.8rem;
+    text-align: center;
+    background-color: #434343;
+    color: #FFFFFF; }
+    .Application .payFooterNavigation .Button:nth-last-child(1), .Application .payFooterNavigation .Button:nth-last-child(2) {
+      background-color: #151E21; }
+  .Application .payFooterNavigation .elementLeft {
+    height: 4.8rem;
+    width: 4.8rem;
+    background-color: #F5F6F7; }
+
+/*address.html*/
+.Application.PageAddress .ViewStack {
+  padding-top: 4.4rem;
+  padding-bottom: 4.4rem; }
+.Application.PageAddress #AddressList #listContent .addressItem {
+  padding: 1rem; }
+  .Application.PageAddress #AddressList #listContent .addressItem .Button.AddressEdit {
+    height: 2rem;
+    background: url("/vsystem.server.20160816/images/icons/001.png") left center no-repeat;
+    background-size: auto 100%;
+    padding-left: 2.8rem;
+    vertical-align: middle; }
+  .Application.PageAddress #AddressList #listContent .addressItem .Button.AddressRemove {
+    height: 2rem;
+    background: url("/vsystem.server.20160816/images/icons/020.png") left center no-repeat;
+    background-size: auto 100%;
+    padding-left: 2.8rem;
+    vertical-align: middle; }
+  .Application.PageAddress #AddressList #listContent .addressItem .Line {
+    margin: 1rem 0; }
+  .Application.PageAddress #AddressList #listContent .addressItem > .Label {
+    line-height: 1.2em; }
+.Application.PageAddress #editor .tipsLabel {
+  padding: 1rem 2rem;
+  font-size: 1.1rem; }
+
+/*index.html*/
+.Application.PageLoading {
+  background-color: #FFFFFF; }
+  .Application.PageLoading .ViewContent .VGroup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: auto;
+    z-index: 100;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    text-align: center; }
+
+/*register.html*/
+.Application.PageRegister .ViewStack {
+  padding-bottom: 4.4rem; }
+.Application.PageRegister #TelVerify .TextContainer {
+  padding: 2rem 2rem 3rem 2rem; }
+  .Application.PageRegister #TelVerify .TextContainer h5 {
+    font-size: 1.6rem;
+    padding-bottom: 1.5rem; }
+.Application.PageRegister #TelVerify .FormGroup .FormItem .Button {
+  border: 0.1rem solid #ADADAD;
+  border-radius: 0.2rem;
+  background-color: #FFFFFF;
+  width: 9rem;
+  height: 2.4rem;
+  vertical-align: middle;
+  text-align: center;
+  position: absolute;
+  right: 0; }
+.Application.PageRegister #User .TextContainer {
+  padding: 2rem 2rem 3rem 2rem; }
+  .Application.PageRegister #User .TextContainer h5 {
+    font-size: 1.6rem;
+    padding-bottom: 1.5rem; }
+.Application.PageRegister #User .FormGroup .FormItem > .HGroup {
+  flex: auto;
+  height: 2.4rem;
+  line-height: 2.4rem;
+  border: none; }
+  .Application.PageRegister #User .FormGroup .FormItem > .HGroup .RadioBox {
+    float: left;
+    width: 50%; }
+.Application.PageRegister #User .FormGroup #agreeButton {
+  background-color: #F5F6F7;
+  padding: 4rem 0;
+  text-align: center; }
+.Application.PageRegister #User .FormGroup #vipNotice {
+  text-decoration: underline; }
+.Application.PageRegister #vipNoticeContent .BorderContainer {
+  padding: 2rem; }
+  .Application.PageRegister #vipNoticeContent .BorderContainer .ContentContainer {
+    height: 100%;
+    overflow-y: auto; }
+    .Application.PageRegister #vipNoticeContent .BorderContainer .ContentContainer h5 {
+      margin-bottom: 1.5rem; }
+
+/*trolley.html*/
+.Application.PageTrolley .ViewStack {
+  padding-top: 4.4rem;
+  padding-bottom: 4.8rem; }
+.Application.PageTrolley #trolley:after {
+  content: " ";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+  overflow: hidden; }
+.Application.PageTrolley #trolley .ListItem {
+  padding: 1rem; }
+  .Application.PageTrolley #trolley .ListItem:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    overflow: hidden; }
+  .Application.PageTrolley #trolley .ListItem img {
+    float: left;
+    padding: 0 1rem;
+    width: 7rem;
+    height: 7rem; }
+  .Application.PageTrolley #trolley .ListItem > .VGroup {
+    float: left; }
+    .Application.PageTrolley #trolley .ListItem > .VGroup .Title {
+      font-size: 1.6rem; }
+    .Application.PageTrolley #trolley .ListItem > .VGroup .Desc {
+      font-size: 1.2rem;
+      color: #909090; }
+  .Application.PageTrolley #trolley .ListItem .NumericStepper {
+    float: right; }
+.Application.PageTrolley #Recommend .Title {
+  text-align: center;
+  height: 4.4rem;
+  line-height: 4rem;
+  color: #909090;
+  background-color: #F5F6F7; }
+  .Application.PageTrolley #Recommend .Title .Label {
+    background-color: #F5F6F7;
+    padding: 0 2rem;
+    z-index: 10;
+    position: relative; }
+  .Application.PageTrolley #Recommend .Title .Line {
+    position: absolute;
+    top: 2rem;
+    left: 1rem;
+    right: 1rem;
+    z-index: 1; }
+.Application.PageTrolley #Recommend .List:after {
+  content: " ";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+  overflow: hidden; }
+.Application.PageTrolley #Recommend .List .ListItem {
+  float: left;
+  width: 33.3%; }
+  .Application.PageTrolley #Recommend .List .ListItem .Label {
+    padding: 0 1rem; }
+.Application.PageTrolley #Recommend #chargeButton {
+  float: right;
+  margin-right: 1rem; }
+
+/*orderBill.html*/
+.Application.PageOrderBill .ViewStack {
+  padding-top: 4.4rem;
+  padding-bottom: 4.8rem; }
+.Application.PageOrderBill #list .FilterSelect {
+  padding: 0 1.5rem; }
+.Application.PageOrderBill #list .BillItem {
+  padding: 1rem 0;
+  margin-bottom: 1rem;
+  background-color: #FFFFFF; }
+  .Application.PageOrderBill #list .BillItem:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    overflow: hidden; }
+  .Application.PageOrderBill #list .BillItem .ItemHead {
+    padding: 0 1rem; }
+    .Application.PageOrderBill #list .BillItem .ItemHead:after {
+      content: " ";
+      display: block;
+      height: 0;
+      clear: both;
+      visibility: hidden;
+      overflow: hidden; }
+    .Application.PageOrderBill #list .BillItem .ItemHead .Left {
+      float: left; }
+    .Application.PageOrderBill #list .BillItem .ItemHead .Right {
+      float: right;
+      color: #D40202; }
+  .Application.PageOrderBill #list .BillItem .ItemBody {
+    padding: 1rem;
+    border-bottom: 0.1rem solid #F5F6F7; }
+    .Application.PageOrderBill #list .BillItem .ItemBody:after {
+      content: " ";
+      display: block;
+      height: 0;
+      clear: both;
+      visibility: hidden;
+      overflow: hidden; }
+    .Application.PageOrderBill #list .BillItem .ItemBody img {
+      float: left;
+      width: 7rem;
+      height: 7rem;
+      margin-right: 1rem; }
+    .Application.PageOrderBill #list .BillItem .ItemBody .Left {
+      float: left; }
+      .Application.PageOrderBill #list .BillItem .ItemBody .Left .Label {
+        display: block; }
+      .Application.PageOrderBill #list .BillItem .ItemBody .Left .Desc {
+        color: #CCCCCC; }
+    .Application.PageOrderBill #list .BillItem .ItemBody .Right {
+      float: right;
+      text-align: right; }
+      .Application.PageOrderBill #list .BillItem .ItemBody .Right .Label {
+        display: block; }
+      .Application.PageOrderBill #list .BillItem .ItemBody .Right .Discount {
+        color: #CCCCCC;
+        text-decoration: line-through; }
+      .Application.PageOrderBill #list .BillItem .ItemBody .Right .Number {
+        color: #CCCCCC;
+        font-size: 1.2rem; }
+  .Application.PageOrderBill #list .BillItem .ItemFoot {
+    padding: 0 1rem;
+    line-height: 3rem;
+    text-align: right;
+    border-bottom: 0.1rem solid #F5F6F7;
+    font-size: 1.3rem; }
+    .Application.PageOrderBill #list .BillItem .ItemFoot .Charge {
+      font-size: 1.2rem; }
+  .Application.PageOrderBill #list .BillItem .Button {
+    line-height: 3rem;
+    float: right;
+    border: 0.1rem solid #CCCCCC;
+    border-radius: 0.2rem;
+    background-color: #FFFFFF;
+    cursor: pointer;
+    width: 9rem;
+    height: 2.4rem;
+    vertical-align: middle;
+    text-align: center;
+    margin: 0.5rem 1rem;
+    font-size: 1.5rem; }
+.Application.PageOrderBill #detail .addressItem {
+  padding: 1rem; }
+.Application.PageOrderBill #detail .DataGrid {
+  padding: 1rem;
+  background-color: #FFFFFF;
+  margin-bottom: 1rem; }
+  .Application.PageOrderBill #detail .DataGrid table {
+    width: 100%; }
+    .Application.PageOrderBill #detail .DataGrid table tr td:first-child {
+      width: 30%; }
+  .Application.PageOrderBill #detail .DataGrid .Red {
+    color: #D40202; }
+.Application.PageOrderBill #detail .ListItem {
+  margin: 1rem; }
+  .Application.PageOrderBill #detail .ListItem > .HGroup {
+    display: inline; }
+  .Application.PageOrderBill #detail .ListItem img {
+    float: left;
+    width: 7rem;
+    height: 7rem;
+    margin: 0 1rem; }
+  .Application.PageOrderBill #detail .ListItem .elementLeft .Title {
+    font-size: 1.6rem; }
+  .Application.PageOrderBill #detail .ListItem .elementLeft .Desc {
+    font-size: 1.2rem;
+    color: #CCCCCC; }
+  .Application.PageOrderBill #detail .ListItem .elementCenter {
+    width: 4rem;
+    color: #CCCCCC; }
+  .Application.PageOrderBill #detail .ListItem .Price {
+    width: 6rem;
+    text-align: right; }
+.Application.PageOrderBill #express .ItemBody {
+  padding: 1rem;
+  background-color: #FFFFFF;
+  border-bottom: 0.1rem solid #CCCCCC; }
+  .Application.PageOrderBill #express .ItemBody:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    overflow: hidden; }
+  .Application.PageOrderBill #express .ItemBody img {
+    float: left;
+    width: 7rem;
+    height: 7rem;
+    margin-right: 1rem; }
+  .Application.PageOrderBill #express .ItemBody .VGroup {
+    float: left; }
+    .Application.PageOrderBill #express .ItemBody .VGroup .Label {
+      display: block; }
+    .Application.PageOrderBill #express .ItemBody .VGroup .Title {
+      line-height: 2.4rem; }
+    .Application.PageOrderBill #express .ItemBody .VGroup .Desc {
+      color: #808080;
+      font-size: 1.2rem;
+      line-height: 1.2em; }
+.Application.PageOrderBill #express .ExpressList {
+  padding: 1rem 0;
+  background-color: #FFFFFF; }
+  .Application.PageOrderBill #express .ExpressList .ExpressItem {
+    padding-left: 5rem;
+    background: url("/vsystem.server.20160816/images/icons/028.png") left top no-repeat;
+    background-size: 5rem auto; }
+    .Application.PageOrderBill #express .ExpressList .ExpressItem .VGroup {
+      border-bottom: 0.1rem solid #CCCCCC;
+      padding: 1rem 0; }
+      .Application.PageOrderBill #express .ExpressList .ExpressItem .VGroup .Label {
+        display: block; }
+      .Application.PageOrderBill #express .ExpressList .ExpressItem .VGroup .Time {
+        color: #808080;
+        font-size: 1.2rem; }
+  .Application.PageOrderBill #express .ExpressList .ExpressItem:first-child {
+    background: url("/vsystem.server.20160816/images/icons/029.png") left top no-repeat;
+    background-size: 5rem auto; }
+
+/*orderConfirm.html*/
+.Application.PageOrderConfirm .ViewStack {
+  padding-top: 4.4rem;
+  padding-bottom: 4.4rem; }
+.Application.PageOrderConfirm .ViewContent #orderAddress {
+  background-color: #F5F6F7; }
+  .Application.PageOrderConfirm .ViewContent #orderAddress .VGroup {
+    background-color: #FFFFFF;
+    margin: 2rem 2rem;
+    padding: 1rem;
+    border: 0.1rem solid #CCCCCC;
+    border-radius: 0.5rem; }
+    .Application.PageOrderConfirm .ViewContent #orderAddress .VGroup .Title {
+      text-align: center;
+      font-size: 1.6rem; }
+    .Application.PageOrderConfirm .ViewContent #orderAddress .VGroup .Button {
+      float: right; }
+      .Application.PageOrderConfirm .ViewContent #orderAddress .VGroup .Button img {
+        height: 2.5rem; }
+.Application.PageOrderConfirm .ViewContent .orderPayway {
+  padding: 0.5rem 1rem;
+  line-height: 4rem; }
+  .Application.PageOrderConfirm .ViewContent .orderPayway .Button {
+    width: 4rem; }
+  .Application.PageOrderConfirm .ViewContent .orderPayway .CheckBox {
+    float: right; }
+    .Application.PageOrderConfirm .ViewContent .orderPayway .CheckBox input[type="checkbox"]:checked + label:after {
+      background: url("/vsystem.server.20160816/images/radio2.png") center center no-repeat;
+      background-size: 2.4rem auto; }
+.Application.PageOrderConfirm .ViewContent #orderList .ListItem {
+  margin: 1rem; }
+  .Application.PageOrderConfirm .ViewContent #orderList .ListItem > .HGroup {
+    display: inline; }
+  .Application.PageOrderConfirm .ViewContent #orderList .ListItem img {
+    float: left;
+    width: 7rem;
+    height: 7rem;
+    margin: 0 1rem; }
+  .Application.PageOrderConfirm .ViewContent #orderList .ListItem .elementLeft .Title {
+    font-size: 1.6rem; }
+  .Application.PageOrderConfirm .ViewContent #orderList .ListItem .elementLeft .Desc {
+    font-size: 1.2rem;
+    color: #CCCCCC; }
+  .Application.PageOrderConfirm .ViewContent #orderList .ListItem .elementCenter {
+    width: 4rem;
+    color: #CCCCCC; }
+  .Application.PageOrderConfirm .ViewContent #orderList .ListItem .Price {
+    width: 6rem;
+    text-align: right; }
+.Application.PageOrderConfirm .ViewContent .orderNotice {
+  line-height: 1rem;
+  color: #909090;
+  font-size: 0.9rem;
+  background-color: #F5F6F7;
+  padding: 2rem 3rem; }
+.Application.PageOrderConfirm .ViewContent .DataGridCell {
+  padding: 0.85rem; }
+
+/*rack.html*/
+.Application.PageRack .ViewStack {
+  padding-top: 4.4rem;
+  padding-bottom: 4.8rem; }
+.Application.PageRack #list #expandButton {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 1.2rem;
+  height: 7.8rem;
+  background: url("/vsystem.server.20160816/images/icons/024.png") left top no-repeat;
+  background-size: 100% auto; }
+.Application.PageRack #list #pullbackButton {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 1.2rem;
+  height: 7.8rem;
+  background: url("/vsystem.server.20160816/images/icons/025.png") left top no-repeat;
+  background-size: 100% auto; }
+.Application.PageRack #list #listFilter {
+  margin: 0.5rem 1rem; }
+  .Application.PageRack #list #listFilter .normalButton {
+    text-align: center;
+    background-color: #909090;
+    color: #FFFFFF;
+    height: 2.4rem;
+    padding: 0 1rem;
+    margin: 0.5rem;
+    display: inline-block;
+    border-radius: 0.5rem; }
+.Application.PageRack #list #listContent .Container {
+  border: 0.1rem solid #CCCCCC; }
+  .Application.PageRack #list #listContent .Container > .HGroup {
+    margin: 1rem; }
+  .Application.PageRack #list #listContent .Container .ButtonMore {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: url("/vsystem.server.20160816/images/icons/023.png") left top no-repeat;
+    background-size: 100% auto;
+    position: absolute;
+    right: 0;
+    bottom: 0; }
+.Application.PageRack #list #listContent .Container:hover {
+  border: 0.1rem solid #CCCCCC; }
+.Application.PageRack #detail .Slider img {
+  width: 100%;
+  max-width: 100%; }
+.Application.PageRack #detail #itemProperty {
+  font-size: 1.6rem;
+  margin: 1rem; }
+  .Application.PageRack #detail #itemProperty ~ .Label, .Application.PageRack #detail #itemProperty .DataGrid {
+    margin: 0 1rem; }
+.Application.PageRack #detail #itemDetail {
+  margin: 1rem; }
+.Application.PageRack #detail .Line {
+  margin: 2rem 1rem; }
+.Application.PageRack #detail #itemSize {
+  text-align: center; }
+.Application.PageRack #detail .ButtonMore {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  background-color: #151E21;
+  color: #FFFFFF;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 5rem;
+  font-size: 3rem; }
+.Application.PageRack .PopUp .BorderContainer {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 80%;
+  top: 60%;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0; }
+  .Application.PageRack .PopUp .BorderContainer .Close {
+    right: 1rem;
+    top: 1rem; }
+  .Application.PageRack .PopUp .BorderContainer .ContentContainer {
+    padding: 1rem; }
+    .Application.PageRack .PopUp .BorderContainer .ContentContainer > .VGroup .HGroup {
+      padding: 1rem; }
+      .Application.PageRack .PopUp .BorderContainer .ContentContainer > .VGroup .HGroup > .Label:nth-of-type(1) {
+        display: block;
+        font-size: 1.6rem; }
+      .Application.PageRack .PopUp .BorderContainer .ContentContainer > .VGroup .HGroup .RadioBox {
+        margin-right: 1rem;
+        position: relative; }
+        .Application.PageRack .PopUp .BorderContainer .ContentContainer > .VGroup .HGroup .RadioBox input[type="radio"] + label {
+          border: none;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%; }
+        .Application.PageRack .PopUp .BorderContainer .ContentContainer > .VGroup .HGroup .RadioBox input[type="radio"]:checked + label:after {
+          background: none; }
+        .Application.PageRack .PopUp .BorderContainer .ContentContainer > .VGroup .HGroup .RadioBox input[type="radio"][disabled] + label {
+          background-color: #CCCCCC; }
+        .Application.PageRack .PopUp .BorderContainer .ContentContainer > .VGroup .HGroup .RadioBox input[type="radio"] + label + span {
+          font-size: 1.4rem;
+          padding: 0.2rem 1rem;
+          color: #909090;
+          border: 0.1rem solid #CCCCCC; }
+        .Application.PageRack .PopUp .BorderContainer .ContentContainer > .VGroup .HGroup .RadioBox input[type="radio"]:checked + label + span {
+          font-size: 1.7rem;
+          background: #151E21;
+          border: 0.1rem solid #434343;
+          color: #FFFFFF; }
+        .Application.PageRack .PopUp .BorderContainer .ContentContainer > .VGroup .HGroup .RadioBox input[type="radio"][disabled] + label + span {
+          background-color: #CCCCCC; }
+    .Application.PageRack .PopUp .BorderContainer .ContentContainer > .VGroup > .HGroup:nth-of-type(1) img {
+      width: 7rem;
+      float: left;
+      margin-right: 1rem; }
+    .Application.PageRack .PopUp .BorderContainer .ContentContainer > .VGroup > .HGroup:nth-of-type(1) .Price {
+      margin-top: 2rem; }
+    .Application.PageRack .PopUp .BorderContainer .ContentContainer > .VGroup > .HGroup:nth-last-of-type(2) .Label {
+      float: left; }
+    .Application.PageRack .PopUp .BorderContainer .ContentContainer > .VGroup > .HGroup:nth-last-of-type(2) .NumericStepper {
+      float: right; }
+
+/*mainmenu.html*/
+.Application.PageMainMenu .BorderContainer #information {
+  margin: 2rem;
+  padding: 1rem 2rem;
+  background-color: #dddddd;
+  box-shadow: 0 0 1rem #F5F6F7; }
+  .Application.PageMainMenu .BorderContainer #information .elementLeft .Title {
+    font-size: 1.6rem;
+    margin-bottom: 1rem; }
+  .Application.PageMainMenu .BorderContainer #information .elementRight {
+    width: 5rem; }
+  .Application.PageMainMenu .BorderContainer #information .code128 > canvas {
+    width: 100%;
+    height: 5rem;
+    margin-top: 1rem; }
+  .Application.PageMainMenu .BorderContainer #information .code128 > .Label {
+    text-align: center; }
+.Application.PageMainMenu #menu .BorderContainer {
+  float: left;
+  width: 33%;
+  text-align: center;
+  padding: 3rem 0 2rem 0;
+  border-top: 0.1rem solid #CCCCCC;
+  border-right: 0.1rem solid #CCCCCC; }
+  .Application.PageMainMenu #menu .BorderContainer img {
+    width: 4rem;
+    margin: 0 auto; }
+.Application.PageMainMenu #menu .BorderContainer:nth-of-type(1) {
+  border-top: none; }
+.Application.PageMainMenu #menu .BorderContainer:nth-of-type(2) {
+  border-top: none; }
+.Application.PageMainMenu #menu .BorderContainer:nth-of-type(3) {
+  border-top: none; }
+.Application.PageMainMenu #menu .BorderContainer:nth-child(3n) {
+  border-right: none; }
+
+/*customization.html*/
+.Application.PageCustomization .ViewStack {
+  padding-top: 4.4rem; }
+  .Application.PageCustomization .ViewStack .List .ListItem > .VGroup {
+    margin: 1rem; }
+    .Application.PageCustomization .ViewStack .List .ListItem > .VGroup > .Label {
+      margin-left: 1rem;
+      margin-bottom: 1rem; }
+    .Application.PageCustomization .ViewStack .List .ListItem > .VGroup > .HGroup {
+      display: flex; }
+      .Application.PageCustomization .ViewStack .List .ListItem > .VGroup > .HGroup img {
+        flex: none;
+        padding: 0 1rem;
+        width: 7rem;
+        height: 7rem; }
+      .Application.PageCustomization .ViewStack .List .ListItem > .VGroup > .HGroup > .VGroup {
+        flex: auto; }
+        .Application.PageCustomization .ViewStack .List .ListItem > .VGroup > .HGroup > .VGroup > span:nth-of-type(1) {
+          line-height: 2rem; }
+        .Application.PageCustomization .ViewStack .List .ListItem > .VGroup > .HGroup > .VGroup > span:nth-of-type(2) {
+          font-size: 1.2rem;
+          color: #cccccc;
+          line-height: 1.2rem;
+          margin-bottom: 1rem; }
+        .Application.PageCustomization .ViewStack .List .ListItem > .VGroup > .HGroup > .VGroup > span:nth-of-type(3) {
+          font-size: 1.2rem;
+          color: #cccccc;
+          line-height: 1.4rem; }
+        .Application.PageCustomization .ViewStack .List .ListItem > .VGroup > .HGroup > .VGroup > span:nth-of-type(4) {
+          font-size: 1.2rem;
+          color: #cccccc;
+          line-height: 1.4rem; }
+
+/*setting.html*/
+.Application.PageSetting .FooterNavigation {
+  background-color: #F5F6F7; }
+  .Application.PageSetting .FooterNavigation .Button {
+    background-color: #909090;
+    color: #F5F6F7; }
+.Application.PageSetting .ViewStack {
+  padding-top: 4.4rem;
+  padding-bottom: 4.8rem; }
+  .Application.PageSetting .ViewStack .ViewContent > .VGroup:nth-of-type(1) .Group {
+    height: 16rem;
+    overflow: hidden;
+    text-align: center;
+    position: relative; }
+    .Application.PageSetting .ViewStack .ViewContent > .VGroup:nth-of-type(1) .Group img:nth-of-type(1) {
+      width: 7rem;
+      height: 7rem;
+      display: block;
+      border-radius: 7rem;
+      border: 0.5rem solid #FFFFFF;
+      position: absolute;
+      z-index: 101;
+      top: 3rem;
+      left: 50%;
+      margin-left: -4rem; }
+    .Application.PageSetting .ViewStack .ViewContent > .VGroup:nth-of-type(1) .Group .Label {
+      font-size: 2rem;
+      position: absolute;
+      z-index: 101;
+      bottom: 2rem;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      color: #FFFFFF; }
+    .Application.PageSetting .ViewStack .ViewContent > .VGroup:nth-of-type(1) .Group img:nth-last-of-type(1) {
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 100; }
+  .Application.PageSetting .ViewStack .ViewContent .List .HGroup {
+    padding: 1rem; }
+    .Application.PageSetting .ViewStack .ViewContent .List .HGroup > img:nth-of-type(1) {
+      height: 2.6rem;
+      width: auto;
+      margin: 0 0.5rem; }
+    .Application.PageSetting .ViewStack .ViewContent .List .HGroup .Button {
+      float: right; }
+      .Application.PageSetting .ViewStack .ViewContent .List .HGroup .Button img {
+        height: 2.6rem;
+        width: auto; }
+
+.Application.mission .ViewStack {
+  padding-top: 4.4rem; }
+.Application.mission #detail .List .ItemRenderer {
+  padding-bottom: 1rem; }
+  .Application.mission #detail .List .ItemRenderer img {
+    width: 100%; }
+.Application.mission #list #expandButton {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 1.2rem;
+  height: 7.8rem;
+  background: url("/vsystem.server.20160816/images/icons/024.png") left top no-repeat;
+  background-size: 100% auto; }
+.Application.mission #list #pullbackButton {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 1.2rem;
+  height: 7.8rem;
+  background: url("/vsystem.server.20160816/images/025.png") left top no-repeat;
+  background-size: 100% auto; }
+.Application.mission #list #listFilter {
+  margin: 0.5rem 1rem; }
+  .Application.mission #list #listFilter .normalButton {
+    text-align: center;
+    background-color: #909090;
+    color: #FFFFFF;
+    height: 2.4rem;
+    padding: 0 1rem;
+    margin: 0.5rem;
+    display: inline-block;
+    border-radius: 0.5rem; }
+.Application.mission #list #listContent .Container {
+  border: 0.1rem solid #CCCCCC; }
+  .Application.mission #list #listContent .Container > .HGroup {
+    margin: 1rem; }
+  .Application.mission #list #listContent .Container .ButtonMore {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: url("/vsystem.server.20160816/images/icons/017.png") left top no-repeat;
+    background-size: 100% auto;
+    position: absolute;
+    right: 0;
+    bottom: 0; }
+.Application.mission #list #listContent .Container:hover {
+  border: 0.1rem solid #CCCCCC; }
+
+/*# sourceMappingURL=$page.css.map */
