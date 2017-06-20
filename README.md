@@ -4,7 +4,7 @@
 
 ##### jsFlex是一个思路来源于Apache Flex（原Adobe Flex），试图做到以下几个目标：
 
-1. 通过实现class和package机制，增强web前端项目管理的机制，简化js开发流程，降低项目门槛。
+1. 通过实现class和package机制，增强web前端项目管理的能力，简化js开发流程，降低项目门槛。
 1. 允许使用mxml标签式编程。
 1. 模拟Flex SDK的大部分API，包括Binding。
 
@@ -12,10 +12,11 @@
 ##### 现在已经实现的以下几个功能。
 
 
-1. 定义类
-2. 全自动化import，并实现JIT
-3. MXML标签编程
-4. 实现了super（使用this.super进行调用）
+1. 类的实现。
+2. 全自动化import，并JIT。
+3. MXML标签编程。
+4. 实现了super（使用this.super进行调用）。
+5. 纯粹前端实现，完全不依赖后端提供的支撑。
 
 **定义class的例子**
 
