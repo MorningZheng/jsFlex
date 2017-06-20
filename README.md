@@ -50,5 +50,35 @@ $package(路径名 String)
 
 #### 注意：
 1. addEventListener、setTimeout时，请使用Function.bind(this)绑定上下文。
+2. 如果你至打算使用class支持，那么只用引入如下代码：
+###### browser：
+```
+<script type="text/javascript" charset="UTF-8" src="jsFlex.sdk/core.js"></script>
+```
+###### nodejs：
+
+```
+require('jsFlex.sdk/core.js');
+```
+3. 启用mxml支持，需要：
+
+```
+$import('mx.utils.flex')
+```
+
+并做请求完成后的相应：
+
+```
+$main(function () {
+    mx.utils.flex.local();
+    mx.utils.router.boot(function () {
+        //do something...
+    });
+});
+
+```
+mxml的编程，现在仅适用于browser，在nodejs上的支持，请等待稍后的版本。
+
 
 ##### 更详细的例子，详见demo.html。
+##### jsFlex.sdk不仅仅包括了class polyfill，更多的是对flex控件的实现。
