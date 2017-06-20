@@ -47,6 +47,7 @@ $package(路径名 String)
         );
 ```
 
-
+#### 注意：
+1. addEventListener、setTimeout时，请使用Function.bind(this)绑定上下文。
 
 ##### 更详细的例子，详见demo.html。
