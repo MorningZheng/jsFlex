@@ -1,6 +1,5 @@
 # jsFlex
 
----
 
 ##### jsFlex是一个思路来源于Apache Flex（原Adobe Flex），试图做到以下几个目标：
 
