@@ -25,7 +25,7 @@
 $package(路径名 String)
         .import(
             类1 String
-            类2 String``
+            类2 String
             ... etc
         )
         .extends(父类 Class Or String)
