@@ -50,7 +50,7 @@ $package(路径名 String)
 
 #### 注意：
 1. addEventListener、setTimeout时，请使用Function.bind(this)绑定上下文。
-2. 如果你至打算使用class支持，那么只用引入如下代码：
+2. 如果你打算只使用class支持，那么只用引入如下代码：
 ###### browser：
 ```
 <script type="text/javascript" charset="UTF-8" src="jsFlex.sdk/core.js"></script>
