@@ -157,5 +157,18 @@ $package('html.display')
                 if(this.htmlElementInstance.style.visibility!==newVal)this.htmlElementInstance.style.visibility=newVal;
             },
 
+            dispatchEvent:function (event) {
+                // this.super.dispatchEvent(event);
+                if(this.htmlElementInstance)this.htmlElementInstance.dispatchEvent(event);
+            },
+            addEventListener:function (type, listener, useCapture, priority, useWeakReference) {
+                // this.super.addEventListener(type, listener, useCapture, priority, useWeakReference);
+                this.htmlElementInstance.addEventListener(type,listener,useCapture);
+            },
+            removeEventListener:function (type, listener, useCapture) {
+                // this.super.removeEventListener(type, listener, useCapture);
+                this.htmlElementInstance.removeEventListener(type,listener);
+            },
+
         }
     );

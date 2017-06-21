@@ -1,8 +1,8 @@
 /**
  * Created by morning on 2017/6/15.
  */
+'use strict';
 (function ($dock) {
-    'use strict';
 
     //判断环境是否载入
     if($dock.jsFlexCoreReady===true)return;
@@ -247,12 +247,14 @@
             var _scope=$scope;
             $scope=this;
 
-            var _super=$scope.super;
-            Object.defineProperty($scope,'super',{configurable:true,enumerable:false,writable:true,value:$super.self});
+            if($scope){
+                var _super=$scope.super;
+                Object.defineProperty($scope,'super',{configurable:true,enumerable:false,writable:true,value:$super.self});
+            };
             try{
                 return $fn.apply($scope,arguments);
-            }finally {
-                Object.defineProperty($scope,'super',{configurable:true,enumerable:false,writable:true,value:_super});
+            }finally{
+                if($scope)Object.defineProperty($scope,'super',{configurable:true,enumerable:false,writable:true,value:_super});
                 $scope=_scope;
             };
         };
@@ -261,12 +263,14 @@
     };
     var $proxySuper=function ($fn,$super,$name) {
         var _=function () {
-            var _super=$scope.super;
-            Object.defineProperty($scope,'super',{configurable:true,enumerable:false,writable:true,value:$super.self});
+            if($scope){
+                var _super=$scope.super;
+                Object.defineProperty($scope,'super',{configurable:true,enumerable:false,writable:true,value:$super.self});
+            };
             try{
                 return $fn.apply($scope,arguments);
             }finally {
-                Object.defineProperty($scope,'super',{configurable:true,enumerable:false,writable:true,value:_super});
+                if($scope)Object.defineProperty($scope,'super',{configurable:true,enumerable:false,writable:true,value:_super});
             };
         };
         _.__FUNCTION__=$fn;
@@ -355,7 +359,7 @@
         this.data.name = name;
         if(this.data.space.hasOwnProperty(name)===false) {
             new Function
-            ('_', 'var $={}; $.' + name + '=function(){return _.construct.apply(this,arguments)};_.space.' + name + '=_.class=$.' + name)
+            ('_', '\'use strict\';var $={}; $.' + name + '=function(){return _.construct.apply(this,arguments)};_.space.' + name + '=_.class=$.' + name)
             (this.data);
             Object.defineProperty(this.data.class, '__GLOBAL__', {enumerable: true, value: this.data});
 

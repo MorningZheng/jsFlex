@@ -61,11 +61,23 @@
                         idEditor.add.call(this);
                     };
                 },
+                _parent:null,
+                get parent(){
+                    return this._parent;
+                },
+                set parent(newVal){
+                    if(this._parent!==newVal){
+                        idEditor.del.call(this);
+                        this._parent=newVal;
+                        idEditor.add.call(this);
+                    };
+                },
 
                 id:null,
                 addElementAt:function (element,index) {
                     //do something
                     element.owner=this;
+                    element.parent=this;
                     element.document=this.document;
                     if(element instanceof mx.core.UIComponent){
                         // if(element.initialized===false)element.commitProperties();
@@ -81,7 +93,7 @@
                 },
                 removeElement:function (element) {
                     //do something
-                    element.document=element.owner=null;
+                    element.document=element.owner=element.parent=null;
                     element.elementRemoved(this,index);
                     return element;
                 },
@@ -105,13 +117,6 @@
                     };
                 },
                 commitProperties:function () {
-                },
-
-                dispatchEvent:function (event) {
-                    if(this.htmlElementInstance)this.htmlElementInstance.dispatchEvent(event);
-                },
-                addEventListener:function (type, listener, useCapture, priority, useWeakReference) {
-                    this.htmlElementInstance.addEventListener(type,listener.bind(this),useCapture);
                 },
                 elementAdded:function (element,index) {
                     // this.owner=element.owner;
