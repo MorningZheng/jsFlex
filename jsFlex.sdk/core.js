@@ -1,7 +1,6 @@
 /**
  * Created by morning on 2017/6/15.
  */
-'use strict';
 (function ($dock) {
 
     //判断环境是否载入
@@ -93,6 +92,7 @@
 //
     var $import=$dock['$import']=function (path) {
         var _=(path instanceof Function)?path:path.trim().split('.');
+        // console.log(path);
         if(_ instanceof Array){
             var $=_.pop();
             var s=$space(_);
