@@ -81,7 +81,7 @@
                 this.super();
                 this.attributes.namespace='['+location.host+location.pathname+']';
                 if($title!==undefined) this.title=$title;
-                this.owner=this.document=this;
+                // this.owner=this.document=this;
             },{
                 get title(){
                     return this._title;
@@ -93,7 +93,13 @@
                             document.title=this._title;
                         };
                     };
-                }
+                },
+                get owner(){
+                    return this;
+                },
+                get document(){
+                    return this;
+                },
             }
         );
 
@@ -129,7 +135,7 @@
             function () {
                 this.super();
                 this.htmlElementInstance=$c('input');
-                this.addEventListener('input',this.onInputHandler);
+                this.addEventListener('input',this.onInputHandler.bind(this));
             },
             {
                 _text:null,
@@ -155,10 +161,18 @@
                 onInputHandler:function(){
                     var e=new PropertyChangeEvent(
                         PropertyChangeEvent.PROPERTY_CHANGE,true,true,
-                        PropertyChangeEventKind.UPDATE,'text',this._text,this.htmlElementInstance,this
+                        PropertyChangeEventKind.UPDATE,'text',this._text,this.htmlElementInstance.value,this
                     );
                     this._text=this.htmlElementInstance.value;
                     this.dispatchEvent(e);
+                },
+                get checked(){
+                    return this.htmlElementInstance.hasAttribute('checked');
+                },
+                set checked(newVal){
+                    if(newVal!==this.checked){
+                        newVal?this.htmlElementInstance.setAttribute('checked',''):this.htmlElementInstance.removeAttribute('checked');
+                    };
                 },
             }
         );
@@ -391,6 +405,9 @@
                         this.dispatchEvent(e);
                     };
                 },
+                get owner(){
+                    return this;
+                },
             }
         );
 
@@ -429,5 +446,42 @@
                 this.includeInLayout=false;
             }
         )
+
+    $package(PATH)
+        .class('FormItem')
+        .extends($P.VGroup)
+        (
+            function () {
+                this.super();
+                [
+                    this.container=new $P.HGroup(),
+                    this.labelDisplay=new $P.Label(),
+                    this.errorDisplay=new $P.Label(),
+                    this.lineDisplay=new $P.Line()
+                ].forEach(function ($) {
+                    this.super.addElement($);
+                },this);
+                this.container.class.push('FormItem');
+                this.errorDisplay.class='ErrorTip';
+                this.lineDisplay.attributes.style='display:none';
+            },
+            {
+                container:null,
+                labelDisplay:null,
+                errorDisplay:null,
+                lineDisplay:null,
+                addElement:function (element) {
+                    return this.container.addElement(element);
+                },
+                get showLine(){
+                    return this.lineDisplay.isShow;
+                },
+                set showLine(newVal){
+                    if(newVal!==this.lineDisplay.isShow){
+                        this.lineDisplay.isShow=newVal;
+                    };
+                },
+            }
+        );
 
 })(this);

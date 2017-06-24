@@ -2,32 +2,20 @@
  * Created by morning on 2017/6/15.
  */
 (function () {
-    var idEditor={
-        add:function (element) {
-            if(element===undefined){
-                if(this.id){
-                    if(this.owner && this.owner[this.id]!==this)this.owner[this.id]=this;
-                    if(this.document && this.document[this.id]!==this)this.document[this.id]=this;
-                };
-            }else{
-                if(element.id){
-                    if(this[element.id]!==element)this[element.id]=element;
-                    if(this.document && this.document[element.id]!==element)this.document[element.id]=element;
-                };
-            };
-        },
-        del:function (element) {
-            if(element===undefined){
-                if(this.owner && this.owner[this.id]===this)delete this.owner[this.id];
-                if(this.document && this.document[this.id]===this)delete this.document[this.id];
-            }else{
-                if(element.id){
-                    if(this[element.id]===element) delete this[element.id];
-                    if(this.document && this.document[element.id]===element)delete this.document[element.id];
-                };
-            };
-        }
-    };
+    // var idEditor={
+    //     add:function () {
+    //         if(this.id){
+    //             if(this.owner && this.owner[this.id]!==this)delete this.owner[this.id];
+    //             if(this.document && this.document[this.id]!==this)delete this.document[this.id];
+    //         };
+    //     },
+    //     del:function () {
+    //         if(this.id){
+    //             if(this.owner && this.owner[this.id]===this)delete this.owner[this.id];
+    //             if(this.document && this.document[this.id]===this)delete this.document[this.id];
+    //         };
+    //     }
+    // };
 
     $package('mx.core')
         .class('UIComponent')
@@ -38,28 +26,12 @@
             },{
                 mxmlChildren:null,
 
-                _document:null,
                 get document(){
-                    return this._document;
-                },
-                set document(newVal){
-                    if(this._document!==newVal){
-                        idEditor.del.call(this);
-                        this._document=newVal;
-                        idEditor.add.call(this);
-                    };
+                    return this.parent?this.parent.document:null;
                 },
 
-                _owner:null,
                 get owner(){
-                    return this._owner;
-                },
-                set owner(newVal){
-                    if(this._owner!==newVal){
-                        idEditor.del.call(this);
-                        this._owner=newVal;
-                        idEditor.add.call(this);
-                    };
+                    return this.parent?this.parent.owner:null;
                 },
                 _parent:null,
                 get parent(){
@@ -67,22 +39,23 @@
                 },
                 set parent(newVal){
                     if(this._parent!==newVal){
-                        idEditor.del.call(this);
+                        // idEditor.del.call(this);
                         this._parent=newVal;
-                        idEditor.add.call(this);
+                        // idEditor.add.call(this);
                     };
                 },
 
-                id:null,
+                _id:null,
+                get id(){
+                    return this._id;
+                },
+                set id(newVal){
+                    if(this._id!==newVal)this._id=newVal;
+                },
                 addElementAt:function (element,index) {
                     //do something
-                    element.owner=this;
-                    element.parent=this;
-                    element.document=this.document;
-                    if(element instanceof mx.core.UIComponent){
-                        // if(element.initialized===false)element.commitProperties();
-                        element.elementAdded(this,index);
-                    };
+                    // element.parent=element.owner=this;
+                    if(element instanceof mx.core.UIComponent)element.elementAdded(this,index);
                     return element;
                 },
                 addElement:function (element) {
@@ -119,14 +92,10 @@
                 commitProperties:function () {
                 },
                 elementAdded:function (element,index) {
-                    // this.owner=element.owner;
-                    // this.document=element.document;
+                    if(element.owner && this.id && element.owner.hasOwnProperty(this.id)===false)element.owner[this.id]=this;
                 },
                 elementRemoved:function (element,index) {
-                    if(element instanceof mx.core.UIComponent){
-                        // delete element.owner;
-                        // delete element.document;
-                    };
+                    if(element.owner && this.id && element.owner[this.id]===this)delete element.owner[this.id];
                 },
             }
         );

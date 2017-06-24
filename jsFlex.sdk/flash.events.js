@@ -11,6 +11,7 @@ $package(
         {
             _initializeListeners:function (type) {
                 type=type||'';
+                // console.log(type);
                 if(this._listeners===null)this._listeners={};
                 if(type){
                     if(this._listeners.hasOwnProperty(type)===false)this._listeners[type]={0:[],1:[]};
@@ -40,6 +41,7 @@ $package(
                 //	Boolean — 如果成功调度了事件，则值为 true。值 false 表示失败或对事件调用了 preventDefault()。
                 event.eventPhase=1;
                 event.eventPhase=2;
+                event.target=event.currentTarget=this;
                 $[0].sort(this._sortPriority).some(function (_) {
                     _.listener(event);
                 });
@@ -185,8 +187,6 @@ $package('flash.events')
     })(
         function (type, bubbles, cancelable) {
             if(type===undefined)throw 'Event type must be a string';
-            this._bubbles=bubbles||false;
-            this._cancelable=cancelable||false;
 
             var $e;
             try{
@@ -196,6 +196,9 @@ $package('flash.events')
                 $e.initEvent(type,this._bubbles,this._cancelable);
             };
             $e.__proto__=this.constructor.prototype;
+            $e.type=this.type=type;
+            $e.bubbles=this._bubbles=bubbles||false;
+            $e.cancelable=this._cancelable=cancelable||false;
 
             return $e;
         },
@@ -209,7 +212,7 @@ $package('flash.events')
             get cancelable(){return this._cancelable;},
             get currentTarget(){return this._currentTarget;},
             get eventPhase(){return this._eventPhase;},
-            get target(){return this._target;}
+            get target(){return this._target;},
         }
     );
 
@@ -261,8 +264,8 @@ $package('fl.events')
     );
 
 $package('flash.events')
-    .extends('flash.events.Event')
     .class('PropertyChangeEvent')
+    .extends('flash.events.Event')
     .static({PROPERTY_CHANGE:'propertyChange'})
     (function (type, bubbles, cancelable,
                kind, property, oldValue, newValue, source) {
@@ -277,6 +280,7 @@ $package('flash.events')
 
 $package('flash.events')
     .class('PropertyChangeEventKind')
+    .extends('flash.events.Event')
     .static({
         get UPDATE(){return 'update';},
         get DELETE(){return 'delete';}
@@ -284,8 +288,21 @@ $package('flash.events')
 
 $package('flash.events')
     .class('EventPhase')
+    .extends('flash.events.Event')
     .static({
         get	CAPTURING_PHASE(){return 1},
         get	AT_TARGET(){return 2},
         get	BUBBLING_PHASE(){return 3},
     });
+
+$package('flash.events')
+    .class('TimerEvent')
+    .extends('flash.events.Event')
+    .static({
+        get	TIMER(){return 'timer';},
+        get	TIMER_COMPLETE(){return 'timerComplete';},
+    })(
+        function () {
+            return this.super.apply(this,arguments);
+        }
+    )

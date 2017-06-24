@@ -35,6 +35,14 @@ $package('html.display')
                 return this._htmlElementInstance;
             },
 
+            set id(newVal){
+                if(newVal) this.attributes.id=newVal;
+                else delete this.attributes.id;
+            },
+            get id(){
+                return this.attributes.id
+            },
+
             _children:null,
             get children(){
                 if(this._children===null){
@@ -48,20 +56,26 @@ $package('html.display')
 
             addElementAt:function (element,index) {
                 var _=(element instanceof html.display.FlexSprite)?element.htmlElementInstance:element;
-
-                if(this.initialized===true){
-                    index=index>-1&&index<this.numElements?index:this.numElements-1;
-                    this.htmlElementInstance.insertBefore(_,this.htmlChildren[index]);
-                    if(element instanceof html.display.FlexSprite)element.elementAdded(this,index);
-                }else{
-                    index=index>-1&&index<this.mxmlChildren.length?index:this.mxmlChildren.length-1;
-                    this.mxmlChildren.splice(index,0,element);
-                };
-
-                if(_.id && element.id!==_.id)element.id=_.id;
-
                 this._children=null;
-                return this.super.addElementAt(element,index);
+                if(this.initialized===true){
+                    if(this.numElements){
+                        index=index>-1&&index<this.numElements?index:this.numElements;
+                        this.htmlElementInstance.insertBefore(_,this.htmlChildren[index]);
+                    }else{
+                        index=0;
+                        this.htmlElementInstance.appendChild(_);
+                    };
+                    if(element instanceof html.display.FlexSprite)element.elementAdded(this,index);
+                    return this.super.addElementAt(element,index);
+                }else{
+                    if(this.mxmlChildren.length){
+                        index=index>-1&&index<this.mxmlChildren.length?index:this.mxmlChildren.length;
+                        this.mxmlChildren.splice(index,0,element);
+                    }else{
+                        this.mxmlChildren.push(element);
+                    };
+                    return element;
+                };
             },
 
             getElementAt:function (index) {
@@ -111,6 +125,7 @@ $package('html.display')
                 if(this._initialized===false)this._initialized=true;
                 if(this.mxmlChildren instanceof Array){
                     this.mxmlChildren.forEach(function (_) {
+                        if(_.parent!==this)_.parent=this;
                         if(_.initialized===false)_.commitProperties();
                         this.addElementAt(_,-1);
                     },this);
@@ -159,6 +174,7 @@ $package('html.display')
 
             dispatchEvent:function (event) {
                 // this.super.dispatchEvent(event);
+                event._target=event._currentTarget=this;
                 if(this.htmlElementInstance)this.htmlElementInstance.dispatchEvent(event);
             },
             addEventListener:function (type, listener, useCapture, priority, useWeakReference) {

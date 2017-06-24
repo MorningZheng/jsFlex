@@ -47,6 +47,7 @@ $package(
                             if(_.flag)this.over(_.message);
                             else this.error('server error');
                         }else{
+                            console.log('could not decode',_);
                             this.error('no response data');
                         };
 

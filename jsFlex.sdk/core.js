@@ -112,6 +112,9 @@
             };
         }else return _;
     };
+    $import.router=function (file,path) {
+        return file.url+path+'.'+file.extend;
+    };
 
 //            异步加载import的定义。
     (function ($) {
@@ -139,9 +142,6 @@
             extend:'js',
             url:'//'+location.host+'/',
         },
-        router:function (file,path) {
-            return file.url+path+'.'+file.extend;
-        },
         start:function () {
             if($request.running===false){
                 $request.running=true;
@@ -161,7 +161,7 @@
                 $request.push(new $session());
                 $main.complete();
             }else if($request[0].remote.length>0){
-                $request.loader.target=$request.router($request.file,$request[0].remote.shift());
+                $request.loader.target=$import.router($request.file,$request[0].remote.shift());
                 if($request.urlHash.hasOwnProperty($request.loader.target)===false){
                     $request.urlHash[$request.loader.target]=true;
                     var text=null;
@@ -432,3 +432,28 @@
     };
 })(this);
 
+//重定义router，偷懒，哈哈哈哈。
+(function () {
+    var $=(function ($) {
+        var _;
+        if($.host==='localhost'){
+            _=$.pathname.split('/').slice(1,2);
+            _.unshift($.host);
+        }else{
+            _=$.host.split('.');
+            if(_.length===2 || _[0]==='www'){
+                _.push.apply(_,$.pathname.split('/').slice(1,2))
+            };
+        };
+        return('//'+_.join('/')+'/jsFlex/');
+    })(location);
+
+    $import.router=function (file,path) {
+        var _=path.split('.');
+        if(
+            'mx|flash|antetype|html|'.indexOf(_[0])!==-1
+            ||(_[0]==='vsystem' && _[1]==='core')
+        )return file.url+path+'.'+file.extend;
+        else return $+path+'.'+file.extend;
+    };
+})();

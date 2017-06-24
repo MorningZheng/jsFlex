@@ -1949,7 +1949,6 @@
                         }else{
                             ele=node;
                         };
-
                         node.parentNode.removeChild(node);
                         return ele;
                     },
