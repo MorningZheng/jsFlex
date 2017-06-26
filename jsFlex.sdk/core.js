@@ -92,7 +92,6 @@
 //
     var $import=$dock['$import']=function (path) {
         var _=(path instanceof Function)?path:path.trim().split('.');
-        // console.log(path);
         if(_ instanceof Array){
             var $=_.pop();
             var s=$space(_);
@@ -120,7 +119,7 @@
     (function ($) {
         for(var _ in $)Object.defineProperty($request,_,Object.getOwnPropertyDescriptor($,_));
         $request.loader.onload=$request.onLoad.bind($request);
-        if($dock.localStorage)$request.storage=$dock.localStorage;
+        if($dock.sessionstorage)$request.storage=$dock.sessionstorage;
 
         //找出当前core的路径
         (function (e) {
@@ -165,7 +164,8 @@
                 if($request.urlHash.hasOwnProperty($request.loader.target)===false){
                     $request.urlHash[$request.loader.target]=true;
                     var text=null;
-                    if($main.useStorge && $request.storage && $request.storage.hasOwnProperty('jsFlex:'+$request.loader.target))text=$request.storage.getItem('jsFlexScript:'+$request.loader.target);
+                    var key='jsFlexScript:'+$request.loader.target;
+                    if($main.useStorge && $request.storage && $request.storage.hasOwnProperty(key))text=$request.storage.getItem(key);
                     if(text===null){
                         $request.loader.open('get',$request.loader.target);
                         $request.loader.send();
@@ -216,8 +216,9 @@
 
 //            将输入的路径解析为包。
     var $space=function ($path,$create) {
-        $create=$create||true;
+        // $create=$create||true;
         var _ns=($path instanceof Array)?$path:$path.trim().split('.');
+
         if(_ns.length===0)_ns.unshift(Singleton.LOCAL);
         var _s=$dock;
         var _o=Singleton;
@@ -226,14 +227,15 @@
             if($n==='*'){
                 return true;
             }else if(_o.hasOwnProperty($n)===false){
-                if($create===true){
-                    _o[$n]=_s[$n]={};
-                }else{
-                    _o=null;
-                    return true;
-                };
+                // if($create===true){
+                //     _o[$n]=_s[$n]={};
+                // }else{
+                //     _o=null;
+                //     return true;
+                // };
+                _o[$n]=_s[$n]={};
             };
-            _o=_s=_s[$n];
+            _o=_s=_o[$n];
         });
         return _o;
     };
@@ -354,13 +356,13 @@
         return $self.class;
     };
 
-
     var $create=function (name) {
         this.data.name = name;
         if(this.data.space.hasOwnProperty(name)===false) {
             new Function
             ('_', '\'use strict\';var $={}; $.' + name + '=function(){return _.construct.apply(this,arguments)};_.space.' + name + '=_.class=$.' + name)
             (this.data);
+
             Object.defineProperty(this.data.class, '__GLOBAL__', {enumerable: true, value: this.data});
 
             [name, '$' + name].forEach(function (_) {
@@ -368,18 +370,8 @@
             }, this);
             this.data.creator = this;
 
-            //最后再设定static
-            this.static=function (properties) {
-                Array.prototype.forEach.call(arguments,function ($) {
-                    if($.constructor===Object){
-                        this.data.initialized.static=1;
-                        for(var p in $){
-                            Object.defineProperty(this.data.class,p,Object.getOwnPropertyDescriptor($,p));
-                        };
-                    };
-                },this);
-                return this;
-            };
+            this.static=this._static;
+            this.extends=this._extends;
 
             return this;
         }else if(this.data.space[name].__GLOBAL__.hasOwnProperty('creator')===true){//判断函数是否经过预处理
@@ -394,7 +386,7 @@
         return $;
     })({
         class:$create,
-        extends:function (source) {
+        _extends:function (source) {
             this.data.extends=$import(source);
             this.data.imports.push(this.data.extends);
             return this;
@@ -402,6 +394,17 @@
         import:function () {
             Array.prototype.forEach.call(arguments,function (_) {
                 this.data.imports.push($import(_));
+            },this);
+            return this;
+        },
+        _static:function (properties) {
+            Array.prototype.forEach.call(arguments,function ($) {
+                if($.constructor===Object){
+                    this.data.initialized.static=1;
+                    for(var p in $){
+                        Object.defineProperty(this.data.class,p,Object.getOwnPropertyDescriptor($,p));
+                    };
+                };
             },this);
             return this;
         },
@@ -421,10 +424,11 @@
         };
 
         Array.prototype.forEach.call(arguments.length===0?[Singleton.LOCAL]:arguments,function ($) {
-            if($.constructor === String || $.constructor === Array){
-                _.data.path=$.constructor===String?
-                    !$?Singleton.LOCAL:$
-                    :$.join('.');
+            if($.constructor===String){
+                _.data.path=$?$:Singleton.LOCAL;
+                _.data.space=$space(_.data.path);
+            }else if($.constructor === Array){
+                _.data.path=$.join('.');
                 _.data.space=$space($);
             };
         });
@@ -438,13 +442,11 @@
         var _;
         if($.host==='localhost'){
             _=$.pathname.split('/').slice(1,2);
-            _.unshift($.host);
         }else{
             _=$.host.split('.');
-            if(_.length===2 || _[0]==='www'){
-                _.push.apply(_,$.pathname.split('/').slice(1,2))
-            };
+            if(_.length===2 || _[0]==='www')_=$.pathname.split('/').slice(1,2);
         };
+        _.unshift($.host);
         return('//'+_.join('/')+'/jsFlex/');
     })(location);
 

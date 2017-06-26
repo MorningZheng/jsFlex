@@ -1914,7 +1914,7 @@
                     each:function (node) {
                         var ele;
                         if(node.hasOwnProperty('flexElementInstance')){
-                            ele=node;
+                            ele=node.flexElementInstance;
                         }else if(node instanceof HTMLElement){
                             if(
                                 (node.nodeName==='BUTTON' && !node.hasAttribute('label'))

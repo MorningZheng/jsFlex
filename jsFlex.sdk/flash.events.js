@@ -218,8 +218,8 @@ $package('flash.events')
 
 
 $package('flash.events')
-    .extends('flash.events.Event')
-    .class('Request')(
+    .class('Request')
+    .extends('flash.events.Event')(
         function (type, bubbles, cancelable, value) {
             var $e=this.super(type, bubbles, cancelable);
             Object.defineProperty($e,'value',{configurable: true, enumerable: true,writable:false,value:value});
@@ -228,8 +228,8 @@ $package('flash.events')
     );
 
 $package('fl.events')
-    .extends('flash.events.Event')
     .class('ListEvent')
+    .extends('flash.events.Event')
     .static({
         ITEM_CLICK:'itemClick',
         ITEM_DOUBLE_CLICK:'itemDoubleClick',

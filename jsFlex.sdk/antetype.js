@@ -74,8 +74,8 @@
         );
 
     $package(PATH)
-        .extends($P.Group)
         .class('Application')
+        .extends($P.Group)
         (
             function ($title) {
                 this.super();
@@ -104,8 +104,8 @@
         );
 
     $package(PATH)
-        .extends('html.display.FlexSprite')
         .class('Button')
+        .extends('html.display.FlexSprite')
         (
             function (newLabel) {
                 this.super();
@@ -130,8 +130,8 @@
             PropertyChangeEvent=$import('flash.events.PropertyChangeEvent'),
             PropertyChangeEventKind=$import('flash.events.PropertyChangeEventKind')
         )
-        .extends('html.display.FlexSprite')
-        .class('TextInput')(
+        .class('TextInput')
+        .extends('html.display.FlexSprite')(
             function () {
                 this.super();
                 this.htmlElementInstance=$c('input');
@@ -178,8 +178,7 @@
         );
 
     $package(PATH)
-        .extends($P.Button)
-        .class('LinkButton')(
+        .class('LinkButton').extends($P.Button)(
             function (newLabel) {
                 this.super(newLabel);
             }
@@ -190,8 +189,7 @@
         'HGroup','VGroup','TileGroup','FlowGroup'
     ].forEach(function (v) {
         $package(PATH)
-            .extends($P.Group)
-            .class(v)
+            .class(v).extends($P.Group)
             (
                 function () {
                     this.super();
@@ -200,8 +198,7 @@
     });
 
     $package(PATH)
-        .extends($P.Group)
-        .class('ViewStack')(
+        .class('ViewStack').extends($P.Group)(
             function () {
                 this.super();
             },
@@ -225,16 +222,14 @@
         );
 
     $package(PATH)
-        .extends($P.Group)
-        .class('ViewContent')(
+        .class('ViewContent').extends($P.Group)(
             function () {
                 this.super();
             }
         );
 
     $package(PATH)
-        .extends($P.Group)
-        .class('BorderContainer')(
+        .class('BorderContainer').extends($P.Group)(
             function () {
                 this.super();
                 //BorderContainer
@@ -245,8 +240,7 @@
         .import(
             VGroup=$import(PATH+'.VGroup')
         )
-        .extends($P.BorderContainer)
-        .class('FormContainer')(
+        .class('FormContainer').extends($P.BorderContainer)(
             function () {
                 this.super();
                 [this.container=new VGroup()].forEach(function ($) {
@@ -265,8 +259,7 @@
         .import(
             VGroup=$import(PATH+'.VGroup')
         )
-        .extends($P.VGroup)
-        .class('FormLine')(
+        .class('FormLine').extends($P.VGroup)(
             function () {
                 this.super();
                 [
@@ -296,8 +289,7 @@
 
 
     $package(PATH)
-        .extends($P.BorderContainer)
-        .class('TextContainer')(
+        .class('TextContainer').extends($P.BorderContainer)(
             function () {
                 this.super();
                 [this.container=new VGroup()].forEach(function ($) {
@@ -313,8 +305,7 @@
         );
 
     $package(PATH)
-        .extends($P.Group)
-        .class('PopUp')(
+        .class('PopUp').extends($P.Group)(
             function () {
                 this.super();
                 this.super.addElement(new BorderContainer());
@@ -351,11 +342,10 @@
         );
 
     $package(PATH)
-        .extends($P.HGroup)
         .import(
             PropertyChangeEvent=$import('flash.events.PropertyChangeEvent')
         )
-        .class('HGroupCheck')(
+        .class('HGroupCheck').extends($P.HGroup)(
             function () {
                 this.super();
                 this.uid=UIDUtil.createUID();
@@ -412,8 +402,7 @@
         );
 
     $package(PATH)
-        .extends($P.HGroupCheck)
-        .class('CheckBox')(
+        .class('CheckBox').extends($P.HGroupCheck)(
             function () {
                 this.super();
                 this.class.shift();
@@ -427,14 +416,8 @@
         PATH,//PATH是一个常量，等于“antetype”
         zc=$import('html.display.FlexSprite')//引入html.display.FlexSprite，并将它重命名为zc
     )
-    /**
-     * 继承至FlexSprit（这里使用了刚刚设定的别名）的类
-     */
-        .extends(zc)
-        /**
-         * 类名称
-         */
-        .class('Declarations')
+        .class('Declarations').extends(zc)
+
         (
             /**
              * 构造函数
