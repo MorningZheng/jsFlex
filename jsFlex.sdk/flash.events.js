@@ -210,8 +210,8 @@ $package('flash.events')
             _target:null,
             get bubbles(){return this._bubbles;},
             get cancelable(){return this._cancelable;},
-            get currentTarget(){return this._currentTarget;},
             get eventPhase(){return this._eventPhase;},
+            get currentTarget(){return this._currentTarget;},
             get target(){return this._target;},
         }
     );

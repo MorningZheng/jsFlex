@@ -222,19 +222,13 @@
         if(_ns.length===0)_ns.unshift(Singleton.LOCAL);
         var _s=$dock;
         var _o=Singleton;
+
         _ns.some(function ($n) {
             $n=$n.trim();
-            if($n==='*'){
-                return true;
-            }else if(_o.hasOwnProperty($n)===false){
-                // if($create===true){
-                //     _o[$n]=_s[$n]={};
-                // }else{
-                //     _o=null;
-                //     return true;
-                // };
-                _o[$n]=_s[$n]={};
-            };
+            if($n==='*')return true;
+            else if(_o.hasOwnProperty($n)===false&&_s.hasOwnProperty($n)===false)_o[$n]=_s[$n]={};
+            else if(_s.hasOwnProperty($n))_o[$n]=_s[$n];
+            else if(_o.hasOwnProperty($n))_s[$n]=_o[$n];
             _o=_s=_o[$n];
         });
         return _o;
@@ -440,12 +434,9 @@
 (function () {
     var $=(function ($) {
         var _;
-        if($.host==='localhost'){
-            _=$.pathname.split('/').slice(1,2);
-        }else{
-            _=$.host.split('.');
-            if(_.length===2 || _[0]==='www')_=$.pathname.split('/').slice(1,2);
-        };
+        _=$.host.split('.');
+        if(_.length===3&&_[0]!=='www') _=[];
+        else _=$.pathname.split('/').slice(1,2);
         _.unshift($.host);
         return('//'+_.join('/')+'/jsFlex/');
     })(location);

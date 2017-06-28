@@ -174,7 +174,7 @@ $package('html.display')
 
             dispatchEvent:function (event) {
                 // this.super.dispatchEvent(event);
-                event._target=event._currentTarget=this;
+                event._target=event._currentTarget=this.htmlElementInstance;//兼容性调整，保证每个浏览器底下均一致
                 if(this.htmlElementInstance)this.htmlElementInstance.dispatchEvent(event);
             },
             addEventListener:function (type, listener, useCapture, priority, useWeakReference) {
