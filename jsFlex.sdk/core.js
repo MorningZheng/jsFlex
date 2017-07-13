@@ -4,8 +4,7 @@
 (function ($dock) {
 
     //判断环境是否载入
-    if($dock.jsFlexCoreReady===true)return;
-    $dock.jsFlexCoreReady=true;
+    if($dock.$callLater instanceof Function)return true;
 
     var $callLater=$dock['$callLater']=function () {
         if(arguments.length===0)return;
@@ -98,7 +97,6 @@
             if(s && s.hasOwnProperty($))return s[$];
             else{
                 $request[0].remote.unshift(_.join('.'));
-
                 try{
                     if($==='*')return path;
                     else{
@@ -124,7 +122,7 @@
         //找出当前core的路径
         (function (e) {
             var stack = e.stack || e.sourceURL || e.stacktrace || '';
-            var src=(/at\s+(?:http|https|file):([^\s\:]+)/.exec(stack)||[])[1]||'';
+            var src=(/\b(?:http|https|file):([^\s:]+)(:\d+:\d+)\b/i.exec(stack)||[])[1]||'';
             var a=src.lastIndexOf('.');
 
             //找出当前的路径
@@ -223,12 +221,17 @@
         var _s=$dock;
         var _o=Singleton;
 
+        //一点小私心^_^
+        if(_s.vsystem!==_o.vsystem){
+            if(_o.vsystem===undefined)_o.vsystem={};
+            for(var v in _s.vsystem)_o.vsystem[v]=_s.vsystem[v];
+            _s.vsystem=_o.vsystem;
+        };
+
         _ns.some(function ($n) {
             $n=$n.trim();
             if($n==='*')return true;
             else if(_o.hasOwnProperty($n)===false&&_s.hasOwnProperty($n)===false)_o[$n]=_s[$n]={};
-            else if(_s.hasOwnProperty($n))_o[$n]=_s[$n];
-            else if(_o.hasOwnProperty($n))_s[$n]=_o[$n];
             _o=_s=_o[$n];
         });
         return _o;
@@ -242,6 +245,7 @@
         var _=function () {
             var _scope=$scope;
             $scope=this;
+
 
             if($scope){
                 var _super=$scope.super;

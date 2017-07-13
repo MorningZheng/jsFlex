@@ -134,8 +134,10 @@ $package('html.display')
                 var e=this.htmlElementInstance;
                 var a=this.attributes;
                 Object.keys(this.attributes).forEach(function (k) {
-                    var _=(a[k] instanceof Array)?a[k].join(' '):a[k].trim();
-                    if(_) e.setAttribute(k,_);
+                    if(a[k]){
+                        var _=(a[k] instanceof Array)?a[k].join(' '):a[k].trim();
+                        if(_) e.setAttribute(k,_);
+                    };
                 });
                 e=a=null;
 
@@ -184,6 +186,9 @@ $package('html.display')
             removeEventListener:function (type, listener, useCapture) {
                 // this.super.removeEventListener(type, listener, useCapture);
                 this.htmlElementInstance.removeEventListener(type,listener);
+            },
+            setFocus:function () {
+                if(this.htmlElementInstance)this.htmlElementInstance.focus();
             },
 
         }

@@ -1660,14 +1660,16 @@
                 }
             })(typeof exports === 'undefined' ? this.sax = {} : exports);
 
-            var namespace=[{data:{'':{uri:['antetype']}}}];
+            var namespace=[{data:{'':{uri:['antetype.*']}}}];
             var nodeFactory=function (node) {
                 var ns=node.nodeName.split(':');
                 if(ns.length===1)ns.unshift('');
                 node.ns=ns;
                 var $=$Singleton;
+
                 node.maybe.data[ns[0]].uri.concat(ns[1]).some(function (_) {
-                    if($.hasOwnProperty(_)){
+                    if(_==='*'){
+                    }else if($.hasOwnProperty(_)){
                         $=$[_];
                     }else{
                         $=null;
@@ -1779,7 +1781,7 @@
                                 var u=_.data[$].uri.join('.');
                                 if(exist.hasOwnProperty(u)===false){
                                     exist[u]=true;
-                                    $import(u+'.*');
+                                    $import(u);
                                 };
                             };
                         });
@@ -1941,11 +1943,9 @@
                                     };
                                 },this);
                             };
-                            Array.prototype.filter.call(node.childNodes,function (_) {
-                                return true;
-                            }).forEach(function (_) {
-                                ele.addElement(local.each(_));
-                            });
+                            while(node.childNodes[0]){
+                                ele.addElement(local.each(node.childNodes[0]));
+                            };
                         }else{
                             ele=node;
                         };
@@ -1962,10 +1962,10 @@
                         var exist={};
                         sax.space.forEach(function (_) {
                             for(var $ in _.data){
-                                var u=_.data[$].uri.join('.')
+                                var u=_.data[$].uri.join('.');
                                 if(exist.hasOwnProperty(u)===false){
                                     exist[u]=true;
-                                    $import(u+'.*');
+                                    $import(u);
                                 };
                             };
                         });

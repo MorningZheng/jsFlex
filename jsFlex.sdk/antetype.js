@@ -174,6 +174,9 @@
                         newVal?this.htmlElementInstance.setAttribute('checked',''):this.htmlElementInstance.removeAttribute('checked');
                     };
                 },
+                selectedAll:function () {
+                    this.htmlElementInstance.select();
+                },
             }
         );
 
@@ -353,8 +356,10 @@
                 var $=new FlexSprite(FlexSprite.create('span'));
                 $.class.push('CheckBox');
                 $.addEventListener('click',function (event) {
-                    if(this.input.checked!=this._selected){
-                        this.input.checked=this._selected;
+                    //过滤2次监听
+                    if(event.target===this.input.htmlElementInstance){
+                        var $=!this._selected;
+                        if(this.input.checked!==$)this.selected=$;
                     };
                 }.bind(this));
 
@@ -389,8 +394,8 @@
                         newVal=Boolean(newVal);
                     }catch(e){};
                     if(this._selected!==newVal){
+                        var e=new PropertyChangeEvent('selectedChange',false,true,'update','selected',this._selected,newVal,this);
                         this._selected=newVal;
-                        var e=new PropertyChangeEvent('selectedChange',false,this._selected,newVal);
                         if(this.input.checked!=this._selected)this.input.checked=this._selected;
                         this.dispatchEvent(e);
                     };
