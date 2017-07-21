@@ -305,4 +305,19 @@ $package('flash.events')
         function () {
             return this.super.apply(this,arguments);
         }
-    )
+    );
+
+(function () {
+    var PATH='flash.events';
+
+    $package(PATH)
+        .class('FlexEvent')
+        .extends('flash.events.Event')
+        .static({
+            get	VALUE_COMMIT(){return 'valueCommit';},
+        })(
+            function () {
+                return this.super.apply(this,arguments);
+            }
+        );
+})();

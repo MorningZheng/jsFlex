@@ -17,6 +17,23 @@
     //     }
     // };
 
+    var UIComponentGlobals={
+        layoutManager:{
+            invalidatePropertiesList:[],
+            invalidateProperties:function ($component) {
+                this.invalidatePropertiesList.push($component);
+                $callLater(this.doInvalidateProperties.bind(this));
+            },
+            doInvalidateProperties:function () {
+                var $=this.invalidatePropertiesList.concat();
+                this.invalidatePropertiesList.length=0;
+                $.forEach(function (_) {
+                    _.commitProperties();
+                });
+            },
+        },
+    };
+
     $package('mx.core')
         .class('UIComponent')
         .extends('flash.display.DisplayObject')
@@ -90,12 +107,21 @@
                     };
                 },
                 commitProperties:function () {
+                    this.invalidatePropertiesFlag=false;
                 },
                 elementAdded:function (element,index) {
                     if(element.owner && this.id && element.owner.hasOwnProperty(this.id)===false)element.owner[this.id]=this;
                 },
                 elementRemoved:function (element,index) {
                     if(element.owner && this.id && element.owner[this.id]===this)delete element.owner[this.id];
+                },
+                invalidatePropertiesFlag:false,
+                invalidateProperties:function () {
+                    if (!this.invalidatePropertiesFlag) {
+                        this.invalidatePropertiesFlag = true;
+                        UIComponentGlobals.layoutManager.invalidateProperties(this);
+                    };
+
                 },
             }
         );

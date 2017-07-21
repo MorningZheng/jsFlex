@@ -123,20 +123,21 @@ $package('html.display')
 
             commitProperties:function () {
                 if(this._initialized===false)this._initialized=true;
+
                 if(this.mxmlChildren instanceof Array){
                     this.mxmlChildren.forEach(function (_) {
                         if(_.parent!==this)_.parent=this;
                         if(_.initialized===false)_.commitProperties();
                         this.addElementAt(_,-1);
                     },this);
+                    this.mxmlChildren.length=0;
                 };
-                this.mxmlChildren.length=0;
-                var e=this.htmlElementInstance;
-                var a=this.attributes;
+
+                var e=this.htmlElementInstance,a=this.attributes;
                 Object.keys(this.attributes).forEach(function (k) {
                     if(a[k]){
                         var _=(a[k] instanceof Array)?a[k].join(' '):a[k].trim();
-                        if(_) e.setAttribute(k,_);
+                        if(_!==e.getAttribute(k)) e.setAttribute(k,_);
                     };
                 });
                 e=a=null;
@@ -178,6 +179,7 @@ $package('html.display')
                 // this.super.dispatchEvent(event);
                 event._target=event._currentTarget=this.htmlElementInstance;//兼容性调整，保证每个浏览器底下均一致
                 if(this.htmlElementInstance)this.htmlElementInstance.dispatchEvent(event);
+                return true;
             },
             addEventListener:function (type, listener, useCapture, priority, useWeakReference) {
                 // this.super.addEventListener(type, listener, useCapture, priority, useWeakReference);

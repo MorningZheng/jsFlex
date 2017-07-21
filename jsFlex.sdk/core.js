@@ -241,36 +241,77 @@
     var $scope=null;
 
 //            代理函数方法。
-    var $proxyThis=function ($fn,$super,$name) {
+    var $proxyThis=function ($fn,$self,$super,$name) {
         var _=function () {
             var _scope=$scope;
             $scope=this;
 
-
+            var $={configurable:true,enumerable:false,writable:true};
             if($scope){
                 var _super=$scope.super;
-                Object.defineProperty($scope,'super',{configurable:true,enumerable:false,writable:true,value:$super.self});
+                $.value=$super.self;
+                Object.defineProperty($scope,'super',$);
+                Object.defineProperty($dock,'$super',$);
             };
+            var _self=$dock.$self;
+            $.value=$self;
+            Object.defineProperty($dock,'$self',$);
             try{
                 return $fn.apply($scope,arguments);
             }finally{
-                if($scope)Object.defineProperty($scope,'super',{configurable:true,enumerable:false,writable:true,value:_super});
+                if($scope){
+                    $.value=_super;
+                    Object.defineProperty($scope,'super',$);
+                    Object.defineProperty($dock,'$super',$);
+                };
+
+                $.value=_self;
+                Object.defineProperty($dock,'$self',$);
+
                 $scope=_scope;
             };
         };
         _.__FUNCTION__=$fn;
         return _;
     };
-    var $proxySuper=function ($fn,$super,$name) {
+    var $proxySuper=function ($fn,$self,$super,$name) {
         var _=function () {
+            var $={configurable:true,enumerable:false,writable:true};
             if($scope){
                 var _super=$scope.super;
-                Object.defineProperty($scope,'super',{configurable:true,enumerable:false,writable:true,value:$super.self});
+                $.value=$super.self;
+                Object.defineProperty($scope,'super',$);
+                Object.defineProperty($dock,'$super',$);
             };
+            var _self=$dock.$self;
+            $.value=$self;
+            Object.defineProperty($dock,'$self',$);
             try{
                 return $fn.apply($scope,arguments);
             }finally {
-                if($scope)Object.defineProperty($scope,'super',{configurable:true,enumerable:false,writable:true,value:_super});
+                if($scope){
+                    $.value=_super;
+                    Object.defineProperty($scope,'super',$);
+                    Object.defineProperty($dock,'$super',$);
+                };
+                $.value=_self;
+                Object.defineProperty($dock,'$self',$);
+            };
+        };
+        _.__FUNCTION__=$fn;
+        return _;
+    };
+
+    var $proxyStatic=function ($fn,$self,$name) {
+        var _=function () {
+            var _self=$dock.$self;
+            var $={configurable:true,enumerable:false,writable:true,value:$self};
+            Object.defineProperty($dock,'$self',$);
+            try{
+                return $fn.apply(this,arguments);//有待商榷
+            }finally {
+                $.value=_self;
+                Object.defineProperty($dock,'$self',$);
             };
         };
         _.__FUNCTION__=$fn;
@@ -296,9 +337,9 @@
             $self.initialized.request=1;
             $self.imports.forEach(function (_) {
                 $self.initialized.request*=_.__GLOBAL__.initialized.class+function ($) {
-                        // 当导入了static，并且构造函数和方法都没有改变时，才是纯静态类
-                        return $.static*($.initializer===0&&$.prototype===0)?1:0;
-                    }(_.__GLOBAL__.initialized);
+                    // 当导入了static，并且构造函数和方法都没有改变时，才是纯静态类
+                    return $.static*($.initializer===0&&$.prototype===0)?1:0;
+                }(_.__GLOBAL__.initialized);
             });
 
             if($self.initialized.request===0){
@@ -317,8 +358,8 @@
                     $parent={};
                     $self.class.prototype={};
                 };
-                $self.self=$proxySuper($self.initialize,$parent,$self.name);
-                $self.construct=$proxyThis($self.initialize,$parent,$self.name);
+                $self.self=$proxySuper($self.initialize,$self.class,$parent,$self.name);
+                $self.construct=$proxyThis($self.initialize,$self.class,$parent,$self.name);
 
 //                    super的继承
                 if($parent.self instanceof Function){
@@ -337,8 +378,8 @@
                     for (var k in o){
                         $[0][k]=$[1][k]=o[k];
                         if(o[k] instanceof Function){
-                            $[0][k]=$proxyThis($[0][k],$parent,$self.name);
-                            $[1][k]=$proxySuper($[1][k],$parent,$self.name);
+                            $[0][k]=$proxyThis($[0][k],$self.class,$parent,$self.name);
+                            $[1][k]=$proxySuper($[1][k],$self.class,$parent,$self.name);
                         };
                     };
                     $[1].configurable=false;
@@ -400,7 +441,12 @@
                 if($.constructor===Object){
                     this.data.initialized.static=1;
                     for(var p in $){
-                        Object.defineProperty(this.data.class,p,Object.getOwnPropertyDescriptor($,p));
+                        var o=Object.getOwnPropertyDescriptor($,p);
+                        for(var k in o){
+                            if(o[k] instanceof Function) o[k]=$proxyStatic(o[k],this.data.class,p);
+                        };
+                        Object.defineProperty(this.data.class,p,o);
+                        o=null;
                     };
                 };
             },this);
@@ -448,7 +494,7 @@
     $import.router=function (file,path) {
         var _=path.split('.');
         if(
-            'mx|flash|antetype|html|'.indexOf(_[0])!==-1
+            'mx|flash|antetype|html|spark'.indexOf(_[0])!==-1
             ||(_[0]==='vsystem' && _[1]==='core')
         )return file.url+path+'.'+file.extend;
         else return $+path+'.'+file.extend;
