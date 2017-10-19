@@ -14,7 +14,7 @@
 1. 类的实现。
 2. 全自动化import，并JIT。
 3. MXML标签编程。
-4. 实现了super（使用this.super进行调用）。
+4. 实现了super（使用$super进行调用，当然还有配套的$this,$self）。
 5. 纯粹前端实现，完全不依赖后端提供的支撑。
 
 **定义class的例子**
@@ -57,7 +57,7 @@ $package(路径名 String)
 ###### nodejs：
 
 ```
-require('jsFlex.sdk/core.js');
+require('jsFlex.sdk/core.0.0.3.js');
 ```
 3. 启用mxml支持，需要：
 
