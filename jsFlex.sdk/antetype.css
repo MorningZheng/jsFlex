@@ -1,0 +1,279 @@
+@charset "UTF-8";
+/*
+这里是整个项目的预设文件
+ */
+/*字体自适应设置*/
+html {
+  font-size: 62.5%; }
+
+@media only screen and (min-width: 321px) {
+  html {
+    font-size: 62.5% !important; } }
+@media only screen and (min-width: 361px) {
+  html {
+    font-size: 70.31% !important; } }
+@media only screen and (min-width: 376px) {
+  html {
+    font-size: 73.24% !important; } }
+@media only screen and (min-width: 481px) {
+  html {
+    font-size: 94% !important; } }
+@media only screen and (min-width: 561px) {
+  html {
+    font-size: 109% !important; } }
+@media only screen and (min-width: 641px) {
+  html {
+    font-size: 125% !important; } }
+@media only screen and (min-width: 721px) {
+  html {
+    font-size: 140.6% !important; } }
+@media only screen and (min-width: 769px) {
+  html {
+    font-size: 150% !important; } }
+@media only screen and (min-width: 801px) {
+  html {
+    font-size: 156.25% !important; } }
+@media only screen and (min-width: 981px) {
+  html {
+    font-size: 191.4% !important; } }
+@media only screen and (min-width: 1081px) {
+  html {
+    font-size: 210.9% !important; } }
+/*公共样式定义开始*/
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0; }
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0; }
+
+a\:Application > *, Application > *, a\:Application, Application {
+  display: none; }
+
+/*定义全局样式，例如默认字体、背景等*/
+.Application {
+  font-family: "Microsoft YaHei UI", "Microsoft YaHei", Helvetica, Arial, sans-serif;
+  font-size: 1.4rem;
+  background-color: #F5F6F7;
+  color: #151E21;
+  line-height: 2.4rem;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  min-width: 320px; }
+  .Application .ActiveThis {
+    display: block !important; }
+  .Application .HideThis {
+    display: none; }
+  .Application * {
+    margin: 0;
+    padding: 0; }
+  .Application h1, .Application h2, .Application h3, .Application h4, .Application h5, .Application h6 {
+    font-size: 100%;
+    font-weight: normal; }
+  .Application em, .Application i {
+    font-style: normal; }
+  .Application li {
+    list-style: none; }
+  .Application a {
+    text-decoration: none;
+    color: #333333; }
+  .Application a:hover {
+    text-decoration: underline;
+    color: #363636; }
+  .Application img {
+    max-width: 100%;
+    vertical-align: middle;
+    border: 0; }
+  .Application input {
+    font-size: 100%; }
+  .Application button {
+    font-size: 100%; }
+  .Application .layoutBase.top > *, .Application .top.HorizontalLayout > *, .Application .top.HGroup > *, .Application .top.FormItem > *, .Application .top.VerticalLayout > *, .Application .top.VGroup > *, .Application .top.TileLayout > * {
+    vertical-align: top; }
+  .Application .layoutBase.middle > *, .Application .middle.HorizontalLayout > *, .Application .middle.HGroup > *, .Application .middle.FormItem > *, .Application .middle.VerticalLayout > *, .Application .middle.VGroup > *, .Application .middle.TileLayout > * {
+    vertical-align: middle; }
+  .Application .layoutBase.bottom > *, .Application .bottom.HorizontalLayout > *, .Application .bottom.HGroup > *, .Application .bottom.FormItem > *, .Application .bottom.VerticalLayout > *, .Application .bottom.VGroup > *, .Application .bottom.TileLayout > * {
+    vertical-align: bottom; }
+  .Application .layoutBase.center, .Application .center.HorizontalLayout, .Application .center.HGroup, .Application .center.FormItem, .Application .center.VerticalLayout, .Application .center.VGroup, .Application .center.TileLayout {
+    text-align: center; }
+  .Application .layoutBase.left, .Application .left.HorizontalLayout, .Application .left.HGroup, .Application .left.FormItem, .Application .left.VerticalLayout, .Application .left.VGroup, .Application .left.TileLayout {
+    text-align: left; }
+  .Application .layoutBase.right, .Application .right.HorizontalLayout, .Application .right.HGroup, .Application .right.FormItem, .Application .right.VerticalLayout, .Application .right.VGroup, .Application .right.TileLayout {
+    text-align: right; }
+  .Application .HorizontalLayout, .Application .HGroup, .Application .FormItem {
+    white-space: nowrap;
+    position: relative;
+    display: inline-block; }
+  .Application .VerticalLayout, .Application .VGroup {
+    white-space: nowrap;
+    position: relative;
+    display: block; }
+  .Application .TileLayout {
+    position: relative;
+    display: flex; }
+  .Application .Group, .Application .VGroup, .Application .HGroup, .Application .FormItem, .Application .BorderContainer {
+    display: block; }
+    .Application .Group:after, .Application .VGroup:after, .Application .HGroup:after, .Application .FormItem:after, .Application .BorderContainer:after {
+      content: " ";
+      display: block;
+      height: 0;
+      clear: both;
+      visibility: hidden;
+      overflow: hidden; }
+  .Application .VGroup:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    overflow: hidden; }
+  .Application .HGroup:after, .Application .FormItem:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    overflow: hidden; }
+  .Application .BorderContainer {
+    position: relative; }
+  .Application .Label {
+    /*字体样式控制*/
+    word-break: normal;
+    width: auto;
+    display: block;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow: hidden; }
+    .Application .Label.smallLabel {
+      font-size: 1.2rem; }
+    .Application .Label.bigLabel {
+      font-size: 1.6rem; }
+  .Application .LinkButton {
+    /*LinkButton 控件是没有边框的 Button 控件，当用户将鼠标移动到该控件位置时，其内容将加亮显示。*/
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0; }
+  .Application .Button {
+    /*Button 控件是常用的矩形按钮。Button 控件看起来似乎可以按压。控件表面可以包含文本标签和（或）图标。*/
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0; }
+  .Application .Line {
+    background-color: #d2d2d2;
+    height: 0.1rem;
+    display: block; }
+  .Application .Space {
+    background-color: #f5f6f7;
+    height: 1rem;
+    display: block; }
+  .Application .FormItem {
+    display: flex;
+    margin: 1rem 2rem; }
+    .Application .FormItem .Label:first-child {
+      flex: none;
+      width: 8rem; }
+    .Application .FormItem .TextInput {
+      flex: auto;
+      height: 2.4rem;
+      line-height: 2.4rem;
+      border: none; }
+  .Application .ErrorTip {
+    display: none; }
+  .Application .ViewContent {
+    display: none; }
+  .Application .TextContainer {
+    padding: 2rem 2rem 3rem 2rem; }
+    .Application .TextContainer h5 {
+      font-size: 1.6rem;
+      padding-bottom: 1.5rem; }
+  .Application .RadioBox {
+    position: relative; }
+    .Application .RadioBox input[type="radio"] {
+      display: none; }
+    .Application .RadioBox input[type="radio"] + label {
+      -webkit-appearance: none;
+      border: 0.1rem solid #ADADAD;
+      display: inline-block;
+      position: relative;
+      width: 2.4rem;
+      height: 2.4rem;
+      line-height: 2.4rem;
+      vertical-align: middle;
+      margin-right: 0.5rem;
+      border-radius: 2.4rem;
+      cursor: pointer; }
+    .Application .RadioBox input[type="radio"]:checked + label {
+      color: #ADADAD; }
+    .Application .RadioBox input[type="radio"]:checked + label:after {
+      content: ' ';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 2.4rem;
+      height: 2.4rem;
+      line-height: 2.4rem;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 1.3rem;
+      background: url("/vsystem.server.20160816/images/icons/026.png") center center no-repeat;
+      background-size: cover; }
+    .Application .RadioBox input[type="radio"][disabled] + label {
+      background-color: #CCCCCC; }
+  .Application .CheckBox .Label {
+    display: inline-block;
+    vertical-align: middle; }
+  .Application .CheckBox input[type="checkbox"] {
+    display: none; }
+  .Application .CheckBox input[type="checkbox"] + label {
+    -webkit-appearance: none;
+    border: 0.1rem solid #ADADAD;
+    display: inline-block;
+    position: relative;
+    width: 2.4rem;
+    height: 2.4rem;
+    line-height: 2.4rem;
+    vertical-align: middle;
+    margin-right: 0.5rem;
+    border-radius: 0.4rem;
+    cursor: pointer; }
+  .Application .CheckBox input[type="checkbox"]:checked + label {
+    color: #ADADAD; }
+  .Application .CheckBox input[type="checkbox"]:checked + label:after {
+    content: ' ';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2.4rem;
+    height: 2.4rem;
+    line-height: 2.4rem;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.3rem;
+    background: url("/vsystem.server.20160816/images/icons/026.png") center center no-repeat;
+    background-size: cover; }
+  .Application .CheckBox input[type="checkbox"][disabled] + label {
+    background-color: #CCCCCC; }
+  .Application .FooterNavigation {
+    background-color: #F5F6F7;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 300;
+    left: 0;
+    right: 0; }
+    .Application .FooterNavigation .Button {
+      height: 4.4rem;
+      background-color: #151E21;
+      color: #FFFFFF;
+      width: 100%; }
+
+/*# sourceMappingURL=antetype.css.map */

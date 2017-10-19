@@ -3,9 +3,9 @@
  */
 (function ($dock) {
 
-    ['$page','$view'].forEach(function (_) {
+    ['antetype'].forEach(function (_) {
         var $=document.createElement('link');
-        $.setAttribute('href',$main.path.url+_+'.css');
+        $.setAttribute('href',$import.file.url+_+'.css');
         $.setAttribute('rel','stylesheet');
         $.setAttribute('type','text/css');
         document.head.appendChild($);
@@ -13,6 +13,10 @@
     });
 
     var PATH='antetype';
+
+    var $class=function (name) {
+        return $package(PATH).class(name);
+    };
 
     var $PropertyChangeEvent=$import('flash.events.PropertyChangeEvent');
     var $PropertyChangeEventKind=$import('flash.events.PropertyChangeEventKind');
@@ -27,23 +31,40 @@
         return _;
     };
 
+    var Globle=$package(PATH)
+        .class('Globle')
+        .static({
+            topApplications:[],
+            _topApplication:null,
+            set topApplication(value){
+                if(Globle._topApplication!==value){
+                    Globle._topApplication=value;
+                    Globle.topApplications.push(value);
+                };
+            },
+            get topApplication(){
+                return Globle._topApplication;
+            }
+        })();
+    var $p=$dock[PATH];
+
     $package(PATH)
         .class('Group')
         .extends('html.display.FlexSprite')
         (
             function () {
-                this.super();
+                $super();
                 this.htmlElementInstance=$c('div');
             }
         );
-    var $p=$dock[PATH];
+
 
     $package(PATH)
         .class('Line')
         .extends('html.display.FlexSprite')
         (
             function () {
-                this.super();
+                $super();
                 this.htmlElementInstance=$c('div');
             }
         );
@@ -53,7 +74,7 @@
         .extends('html.display.FlexSprite')
         (
             function () {
-                this.super();
+                $super();
                 this.htmlElementInstance=$c('img');
             }
         );
@@ -63,7 +84,7 @@
         .extends('html.display.FlexSprite')
         (
             function () {
-                this.super();
+                $super();
                 this.htmlElementInstance=$c('div');
             }
         );
@@ -74,7 +95,7 @@
         .extends('html.display.FlexSprite')
         (
             function () {
-                this.super();
+                $super();
                 this.htmlElementInstance=$c('span');
             },
             {
@@ -94,10 +115,10 @@
         .extends($p.Group)
         (
             function ($title) {
-                this.super();
+                $super();
                 this.attributes.namespace='['+location.host+location.pathname+']';
                 if($title!==undefined) this.title=$title;
-                // this.owner=this.document=this;
+                Globle.topApplication=this;
             },{
                 get title(){
                     return this._title;
@@ -124,7 +145,7 @@
         .extends('html.display.FlexSprite')
         (
             function (newLabel) {
-                this.super();
+                $super();
                 this.htmlElementInstance=$c('Button');
                 if(newLabel!==undefined)this.label=newLabel;
             },{
@@ -145,7 +166,7 @@
         .class('TextInput')
         .extends('html.display.FlexSprite')(
             function () {
-                this.super();
+                $super();
                 this.htmlElementInstance=$c('input');
                 this.addEventListener('input',this.onInputHandler.bind(this));
             },
@@ -195,7 +216,7 @@
     $package(PATH)
         .class('LinkButton').extends($p.Button)(
             function (newLabel) {
-                this.super(newLabel);
+                $super(newLabel);
             }
         );
 
@@ -207,17 +228,20 @@
             .class(v).extends($p.Group)
             (
                 function () {
-                    this.super();
+                    $super();
                 }
             );
     });
 
     $package(PATH)
-        .class('ViewStack').extends($p.Group)(
+        .class('ViewStack')
+        .extends($p.Group)(
             function () {
-                this.super();
+                $super();
+                this.viewChangeHandler=this.viewChangeHandler.bind(this);
             },
             {
+                _currentViewChange:false,
                 _currentView:'',
                 get currentView(){
                     return this._currentView;
@@ -225,28 +249,69 @@
                 set currentView(newVal){
                     if(this._currentView!==newVal){
                         this._currentView=newVal;
-                        this.refresh();
+                        this._currentViewChange=true;
+                        if(this.initialized)this.refresh();
                     }
                 },
                 refresh:function () {
-                    this.children.forEach(function (_) {
-                        _.isShow=_===this[this.currentView];
-                    },this);
+                    if(this._currentViewChange===false)return;
+                    this._currentViewChange=false;
+                    Globle.topApplications.forEach(this.viewChangeHandler);
+
+                    var e=null;
+                    for(var n=0;n<this.numElements;n++){
+                        e=this.getElementAt(n);
+                    };
+                    e=null;
+
+                    for(var v in this.views){
+                        this.views[v].isShow=v===this.currentView;
+                    };
+                },
+                viewChangeHandler:function (a) {
+                    var c=this.systemManager.includeIn;
+                    for(var v in c){
+                        for(var m in c[v]){
+                            var e=a.htmlElementInstance.querySelector('[mx_uid="'+m+'"]');
+                            if(e)e.flexElementInstance.visible=e.flexElementInstance.includeInLayout=(v===this.currentView);
+                        };
+                    };
+                },
+                commitProperties:function () {
+                    $super.commitProperties();
+                    this.refresh();
+                },
+                _views:null,
+                get views(){
+                    if(this._views===null)this._views={};
+                    return this._views;
                 },
             }
         );
 
     $package(PATH)
-        .class('ViewContent').extends($p.Group)(
+        .class('ViewContent')
+        .extends($p.Group)(
             function () {
-                this.super();
+                $super();
+                this.isShow=false;
+            },
+            {
+                elementAdded: function (element, index) {
+                    $super.elementAdded(element, index);
+                    if('views' in element && element.views[this.id]!==this)element.views[this.id]=this;
+                },
+                elementRemoved: function (element, index) {
+                    $super.elementAdded(element, index);
+                    if('views' in element && element.views[this.id]!==this)delete element.views[this.id];
+                },
             }
         );
 
     $package(PATH)
         .class('BorderContainer').extends($p.Group)(
             function () {
-                this.super();
+                $super();
                 //BorderContainer
             }
         );
@@ -257,9 +322,9 @@
         )
         .class('FormContainer').extends($p.BorderContainer)(
             function () {
-                this.super();
+                $super();
                 [this.container=new VGroup()].forEach(function ($) {
-                    this.super.addElement($);
+                    $super.addElement($);
                 },this);
             },
             {
@@ -276,13 +341,13 @@
         )
         .class('FormLine').extends($p.VGroup)(
             function () {
-                this.super();
+                $super();
                 [
                     this.labelDisplay=new Label(),
                     this.container=new VGroup(),
                     this.errorDisplay=new Label()
                 ].forEach(function ($) {
-                    this.super.addElement($);
+                    $super.addElement($);
                 },this);
                 this.errorDisplay.class.push('ErrorTip');
             },
@@ -306,24 +371,24 @@
     $package(PATH)
         .class('TextContainer').extends($p.BorderContainer)(
             function () {
-                this.super();
-                [this.container=new VGroup()].forEach(function ($) {
-                    this.super.addElement($);
-                },this);
+                $super();
+                // [this.container=new VGroup()].forEach(function ($) {
+                //     $super.addElement($);
+                // },this);
             },
             {
-                container:null,
-                addElement:function (element) {
-                    return this.container.addElement(element);
-                },
+                // container:null,
+                // addElement:function (element) {
+                //     return this.container.addElement(element);
+                // },
             }
         );
 
     $package(PATH)
         .class('PopUp').extends($p.Group)(
             function () {
-                this.super();
-                this.super.addElement(new BorderContainer());
+                $super();
+                $super.addElement(new BorderContainer());
                 [
                     this.container=new Group(),
                     this.closeButton=new Group()
@@ -359,11 +424,12 @@
     $package(PATH)
         .class('HGroupCheck').extends($p.HGroup)(
             function () {
-                this.super();
+                $super();
                 this.uid=UIDUtil.createUID();
+                this.class.push('CheckBox');
 
                 var $=new FlexSprite(FlexSprite.create('span'));
-                $.class.push('CheckBox');
+                // $.class.push('CheckBox');
                 $.addEventListener('click',function (event) {
                     //过滤2次监听
                     if(event.target===this.input.htmlElementInstance){
@@ -418,7 +484,7 @@
     $package(PATH)
         .class('CheckBox').extends($p.HGroupCheck)(
             function () {
-                this.super();
+                $super();
                 this.class.shift();
             }
         )
@@ -437,7 +503,7 @@
              * 构造函数
              */
             function () {
-                this.super();
+                $super();
                 this.htmlElementInstance=zc.create('div');
                 this.visible=false;
                 this.includeInLayout=false;
@@ -449,18 +515,19 @@
         .extends($p.VGroup)
         (
             function () {
-                this.super();
+                $super();
                 [
-                    this.container=new $p.HGroup(),
                     this.labelDisplay=new $p.Label(),
+                    this.container=new $p.HGroup(),
                     this.errorDisplay=new $p.Label(),
-                    this.lineDisplay=new $p.Line()
+                    // this.lineDisplay=new $p.Line()
                 ].forEach(function ($) {
-                    this.super.addElement($);
+                    $super.addElement($);
                 },this);
-                this.container.class.push('FormItem');
+                // this.container.class.push('FormItem');
                 this.errorDisplay.class='ErrorTip';
-                this.lineDisplay.attributes.style='display:none';
+                this.container.class.push('container');
+                // this.lineDisplay.attributes.style='display:none';
             },
             {
                 container:null,
@@ -478,6 +545,12 @@
                         this.lineDisplay.isShow=newVal;
                     };
                 },
+                get label(){
+                    return this.labelDisplay.text;
+                },
+                set label(value){
+                    this.labelDisplay.text=value;
+                },
             }
         );
 
@@ -485,7 +558,7 @@
         .class('FormGroup')
         .extends($p.BorderContainer)(
             function () {
-                this.super();
+                $super();
             }
         );
 
@@ -493,7 +566,7 @@
         .class('normalHeaderNavigation')
         .extends($p.HeaderNavigation)(
             function () {
-                this.super();
+                $super();
                 var HG=new $p.HGroup();
                 HG.mxmlChildren=[
                     new $p.Button(),
@@ -538,6 +611,7 @@
                 this.dataGroupProperties={itemRenderer:$p.ItemRenderer};
             },{
                 dataGroupProperties:null,
+                dataGroup:null,
                 get autoLayout(){
                     var v = this.dataGroupProperties.autoLayout;
                     return (v === undefined) ? true : v;
@@ -586,6 +660,7 @@
                     if (renderer instanceof $p.ItemRenderer){
                         (renderer).itemIndex = itemIndex;
                         (renderer).label = this.itemToLabel(data);
+                        (renderer).data = data;
                     };
                 },
             }
@@ -608,6 +683,9 @@
                 this._caretIndex=$self.NO_CARET;
                 this._proposedSelectedIndex=$self.NO_PROPOSED_SELECTION;
                 this._rendererCache=[];
+
+                //与flex不一样
+                this.addElementAt(this.dataGroup=new $p.Group(),0);
             },
             {
                 inUpdateRenderer:false,
@@ -724,7 +802,7 @@
 
                     return " ";
                 },
-                
+
                 _rendererCache:null,
                 commitProperties:function () {
                     var e;
@@ -744,18 +822,17 @@
                         };
 
 
-
                         //删除
-                        if(this.dataProviderLength<this.numElements){
-                            for(i=this.numElements-this.dataProviderLength-1;i<this.numElements;i++)this.removeElementAt(i);
+                        if(this.dataProviderLength<this.dataGroup.numElements){
+                            for(i=this.dataGroup.numElements-this.dataProviderLength-1;i<this.dataGroup.numElements;i++)this.dataGroup.removeElementAt(i);
                         }else{//添加
-                            for(i=this.numElements;i<this.dataProviderLength;i++)this.addElementAt(this._rendererCache[i],i);
+                            for(i=this.dataGroup.numElements;i<this.dataProviderLength;i++)this.dataGroup.addElementAt(this._rendererCache[i],i);
                         };
 
                         //应用数据
-                        for(i=0;i<this.numElements;i++){
+                        for(i=0;i<this.dataGroup.numElements;i++){
                             // this.getElementAt(i).data=this.dataProvider[i];
-                            this.updateRenderer(this.getElementAt(i),i,this.dataProvider[i]);
+                            this.updateRenderer(this.dataGroup.getElementAt(i),i,this.dataProvider[i]);
                             // this.getElementAt(i).commitProperties();
                         };
                     };
@@ -886,9 +963,6 @@
         (
             function () {
                 $super();
-            //    addEventListener(Event.SELECT_ALL, selectAllHandler);
-            },{
-
             }
         );
 
@@ -896,7 +970,7 @@
         .class('ItemRenderer')
         .extends($p.Group)(
             function () {
-                this.super();
+                $super();
             },{
                 _data:null,
                 set data(value){
@@ -921,7 +995,97 @@
                     if(this.htmlElementInstance.innerText!==value)this.htmlElementInstance.innerText=value;
                 },
             }
-        )
+        );
 
+        $package(PATH)
+            .class('Toast')
+            .extends($p.List)(
+                function () {
+                    $super();
+                    this.itemRenderer=$p.ToastRenderer;
+                    this.commitProperties=this.commitProperties.bind(this);
+                },
+                {
+                    show:function ($text,$delay,$closeHandler) {
+                        var $={text:$text,delay:$delay||800,closeHandler:$closeHandler};
+                        !this.dataProvider?this.dataProvider=[$]:this.dataProvider.push($);
+
+                        $callLater(this.commitProperties);
+                        setTimeout(function () {
+                            this.dataProvider=this.dataProvider.filter(function (t) {
+                                return t!==$;
+                            });
+                            $callLater(this.commitProperties);
+                        }.bind(this),$.delay);
+                    },
+                    set parent(value){
+                        $super.parent=value;
+                        if(value.toast!==this) value.toast=this;
+                    },
+                }
+            );
+
+        $package(PATH)
+            .class('ToastRenderer')
+            .extends($p.ItemRenderer)(
+                function () {
+                    $super();
+                },
+                {
+                    set data(value){
+                        $super.data=value;
+                        this.label=value.text;
+                    },
+                }
+            );
+
+    $class('RadioGroup')
+        .extends('html.display.FlexSprite')
+        (
+            function () {
+                $super();
+                this.isShow=false;
+            },{
+
+            }
+        );
+
+    $class('RadioBox')
+        .extends('html.display.FlexSprite')
+        (
+            function () {
+                $super();
+                this.htmlElementInstance=$c('span');
+                this.mxmlChildren=[
+                    this._editor=$c('input'),
+                    this._labelFor=$c('label'),
+                    this._labelDisplay=$c('span'),
+                ];
+                //
+                this._editor.setAttribute('id','mx:'+this.UID);
+                this._editor.setAttribute('type','radio');
+                this._labelFor.setAttribute('for','mx:'+this.UID);
+            },{
+                _labelDisplay:null,
+                _labelFor:null,
+                _editor:null,
+
+                get label(){
+                    return this._labelDisplay.innerText;
+                },
+                set label(newVal){
+                    if(this.label!==newVal)this._labelDisplay.innerText=newVal;
+                },
+                get value(){
+                    return this._editor.getAttribute('value');
+                },
+                set value(newVal){
+                    var $old=this._editor.getAttribute('value');
+                    if($old!==newVal){
+                        this._editor.setAttribute('value',newVal);
+                    };
+                },
+            }
+        );
 
 })(this);

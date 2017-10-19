@@ -1,0 +1,65 @@
+@charset "utf-8";
+/*
+这里是整个项目的预设文件
+ */
+
+//预定义颜色
+$mainColor:#151E21;
+$mainColor2:#222222;
+
+$buttonColor9:#333333;
+$buttonColor5:#363636;
+$buttonColor1:#434343;
+
+$fontColor9:#808080;
+$fontColor5:#909090;
+$fontColor1:#999999;
+$fontColor0:#FFFFFF;
+
+$lineColor5:#ADADAD;
+$lineColor1:#CCCCCC;
+
+$backgroundColor5:#ADADAD;
+$backgroundColor3:#dddddd;
+$backgroundColor1:#F5F6F7;
+$backgroundColor0:#FFFFFF;
+
+$colorNotice0:#D40202;
+$colorNotice1:#576b95;
+$colorNotice2:#509eff;
+$colorNotice3:#049688;
+
+//公开块定义
+//隐藏样式
+@mixin HideThis() {
+  display: none;
+}
+
+//clear样式
+@mixin clear() {
+  &:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    overflow: hidden;
+  }
+}
+
+//浮动居中样式
+@mixin FixedCenter() {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: auto;
+  z-index: 100;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}

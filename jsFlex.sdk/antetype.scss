@@ -1,0 +1,410 @@
+@charset "utf-8";
+@import "default";
+
+/*字体自适应设置*/
+html {
+  font-size: 62.5%
+}
+
+@media only screen and (min-width: 321px) {
+  html {
+    font-size: 62.5% !important
+  }
+}
+
+@media only screen and (min-width: 361px) {
+  html {
+    font-size: 70.31% !important
+  }
+}
+
+@media only screen and (min-width: 376px) {
+  html {
+    font-size: 73.24% !important
+  }
+}
+
+@media only screen and (min-width: 481px) {
+  html {
+    font-size: 94% !important
+  }
+}
+
+@media only screen and (min-width: 561px) {
+  html {
+    font-size: 109% !important
+  }
+}
+
+@media only screen and (min-width: 641px) {
+  html {
+    font-size: 125% !important
+  }
+}
+
+@media only screen and (min-width: 721px) {
+  html {
+    font-size: 140.6% !important
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  html {
+    font-size: 150% !important
+  }
+}
+
+@media only screen and (min-width: 801px) {
+  html {
+    font-size: 156.25% !important
+  }
+}
+
+@media only screen and (min-width: 981px) {
+  html {
+    font-size: 191.4% !important
+  }
+}
+
+@media only screen and (min-width: 1081px) {
+  html {
+    font-size: 210.9% !important
+  }
+}
+
+/*公共样式定义开始*/
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+
+//屏蔽未初始化的元素
+a\:Application>*,Application>*,a\:Application,Application{
+  @include HideThis();
+}
+
+/*定义全局样式，例如默认字体、背景等*/
+.Application {
+  .ActiveThis {
+    display: block !important;
+  }
+  .HideThis {
+    @include HideThis();
+  }
+
+  font-family: "Microsoft YaHei UI", "Microsoft YaHei", Helvetica, Arial, sans-serif;
+  font-size: 1.4rem;
+  background-color: $backgroundColor1;
+  color: $mainColor;
+  line-height: 2.4rem;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  min-width: 320px;
+  * {
+    margin: 0;
+    padding: 0;
+    //vertical-align:top;
+    //text-align: left;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+    font-weight: normal;
+  }
+  em, i {
+    font-style: normal;
+  }
+  li {
+    list-style: none;
+  }
+  a {
+    text-decoration: none;
+    color: $buttonColor9;
+  }
+  a:hover {
+    text-decoration: underline;
+    color: $buttonColor5;
+  }
+  img {
+    max-width: 100%;
+    vertical-align: middle;
+    border: 0;
+  }
+  input {
+    font-size: 100%;
+  }
+  button {
+    font-size: 100%;
+  }
+
+  .layoutBase{
+    &.top{
+      >*{
+        vertical-align:top;
+      }
+    }
+    &.middle{
+      >*{
+        vertical-align:middle;
+      }
+    }
+    &.bottom{
+      >*{
+        vertical-align:bottom;
+      }
+    }
+    &.center{
+      text-align: center;
+    }
+    &.left{
+      text-align: left;
+    }
+    &.right{
+      text-align: right;
+    }
+  }
+
+  //定义布局方式
+  .HorizontalLayout{
+    @extend .layoutBase;
+    white-space: nowrap;
+    //>*{
+      position: relative;
+      display:inline-block;
+    //}
+  }
+
+  .VerticalLayout{
+    @extend .layoutBase;
+    white-space: nowrap;
+    //>*{
+      position: relative;
+      display: block;
+    //}
+  }
+
+  .TileLayout{
+    @extend .layoutBase;
+    //>*{
+      position: relative;
+      display: flex;
+    //}
+  }
+
+  //组件开始
+  .Group{
+    display: block;
+    @include clear();
+  }
+
+  .VGroup{
+    @extend .Group;
+    @extend .VerticalLayout;
+    @include clear();
+  }
+
+  .HGroup{
+    @extend .Group;
+    @extend .HorizontalLayout;
+    @include clear();
+  }
+
+  .BorderContainer {
+    @extend .Group;
+    position: relative;
+  }
+
+  .Label {
+    /*字体样式控制*/
+    &.smallLabel {
+      font-size: 1.2rem;
+    }
+    &.bigLabel {
+      font-size: 1.6rem;
+    }
+    word-break:normal;
+    width:auto;
+    display:block;
+    white-space:pre-wrap;
+    word-wrap : break-word ;
+    overflow: hidden ;
+  }
+
+  .LinkButton {
+    /*LinkButton 控件是没有边框的 Button 控件，当用户将鼠标移动到该控件位置时，其内容将加亮显示。*/
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .Button {
+    /*Button 控件是常用的矩形按钮。Button 控件看起来似乎可以按压。控件表面可以包含文本标签和（或）图标。*/
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .Line {
+    background-color: #d2d2d2;
+    height: 0.1rem;
+    display: block;
+  }
+
+  .Space {
+    background-color: #f5f6f7;
+    height: 1rem;
+    display: block;
+  }
+
+  .FormItem {
+    @extend .HGroup;
+    display: flex;
+
+    margin: 1rem 2rem;
+
+    .Label:first-child {
+      flex: none;
+      width: 8rem;
+    }
+
+    .TextInput {
+      flex: auto;
+      height: 2.4rem;
+      line-height: 2.4rem;
+      border: none;
+    }
+  }
+
+  .ErrorTip {
+    @include HideThis();
+  }
+
+
+  .ViewContent{
+    @include HideThis();
+  }
+
+  .TextContainer {
+    padding: 2rem 2rem 3rem 2rem;
+    h5 {
+      font-size: 1.6rem;
+      padding-bottom: 1.5rem;
+    }
+  }
+
+  .RadioBox {
+    position: relative;
+
+    input[type="radio"] {
+      display: none;
+    }
+
+    input[type="radio"] + label {
+      -webkit-appearance: none;
+      border: 0.1rem solid $lineColor5;
+      display: inline-block;
+      position: relative;
+      width: 2.4rem;
+      height: 2.4rem;
+      line-height: 2.4rem;
+      vertical-align: middle;
+      margin-right: 0.5rem;
+      border-radius: 2.4rem;
+      cursor: pointer;
+    }
+    input[type="radio"]:checked + label {
+      color: $lineColor5;
+    }
+    input[type="radio"]:checked + label:after {
+      content: ' ';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 2.4rem;
+      height: 2.4rem;
+      line-height: 2.4rem;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 1.3rem;
+      background: url("/vsystem.server.20160816/images/icons/026.png") center center no-repeat;
+      background-size: cover;
+    }
+    input[type="radio"][disabled] + label {
+      background-color: $lineColor1;
+    }
+  }
+  .CheckBox {
+    //display: inline-block;
+    .Label{
+      display: inline-block;
+      vertical-align: middle;
+    };
+
+    input[type="checkbox"] {
+      display: none;
+    }
+    input[type="checkbox"] + label {
+      -webkit-appearance: none;
+      border: 0.1rem solid $lineColor5;
+      display: inline-block;
+      position: relative;
+      width: 2.4rem;
+      height: 2.4rem;
+      line-height: 2.4rem;
+      vertical-align: middle;
+      margin-right: 0.5rem;
+      border-radius: 0.4rem;
+      cursor: pointer;
+    }
+    input[type="checkbox"]:checked + label {
+      color: $lineColor5;
+    }
+    input[type="checkbox"]:checked + label:after {
+      content: ' ';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 2.4rem;
+      height: 2.4rem;
+      line-height: 2.4rem;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 1.3rem;
+      background: url("/vsystem.server.20160816/images/icons/026.png") center center no-repeat;
+      background-size: cover;
+    }
+    input[type="checkbox"][disabled] + label {
+      background-color: $lineColor1;
+    }
+  }
+
+  .FooterNavigation {
+    background-color: $backgroundColor1;
+    .Button {
+      height: 4.4rem;
+      background-color: $mainColor;
+      color: $fontColor0;
+      width: 100%;
+    }
+
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 300;
+    left: 0;
+    right: 0;
+  }
+}

@@ -6,6 +6,12 @@
     //判断环境是否载入
     if($dock.$callLater instanceof Function)return true;
 
+    Number.MAX_VALUE=1.79769313486231e+308;
+    Number.MIN_VALUE=4.9406564584124654e-324;
+    Number.NaN=NaN;
+    Number.NEGATIVE_INFINITY=-Infinity;
+    Number.POSITIVE_INFINITY=Infinity;
+
     var $callLater=$dock['$callLater']=function () {
         if(arguments.length===0)return;
         if($callLater.running===false){
@@ -44,6 +50,21 @@
     $callLater.list=[];
     $callLater.running=false;
 
+    //调试及参数设置
+    $dock['$parameter']=function (str,args,scope,log) {
+        var def=[];
+        var name=str.split(',').map(function (v) {
+            v=v.trim().split('=');
+            def.push(v.length===2?v[1]:'undefined');
+            return v[0].trim();
+        });
+
+        new Function('return ['+def.join(',')+']')().forEach(function (v,k) {
+            if(args[k]===undefined&&v!==args[k])args[k]=v;
+            if(scope.constructor.prototype.hasOwnProperty(name[k]) || scope.hasOwnProperty(name[k]))scope[name[k]]=args[k];
+        });
+    };
+
     /*以下是import相关*/
 //            需要加载并序列化的列表，0是远程调用，1是待处理的虚拟class
     var $session=function () {
@@ -61,10 +82,12 @@
 
 //            在全局调用完成后，执行
     var $main=$dock['$main']=function ($) {
-        if($ instanceof Function){
-            if($request.running===true)$main.list.push($);
-            else $();
-        };
+        Array.prototype.forEach.call(arguments,function ($) {
+            if($ instanceof Function){
+                if($request.running===true)$main.list.push($);
+                else $();
+            };
+        });
     };
     $main.list=[];
     $main.complete=function () {
@@ -238,7 +261,7 @@
     };
 
     //全局的缓存，用于指示当前的函数是在哪个实例当中运行。
-    var $scope=null;
+    var $scope=null,$su,$se;
 
 //            代理函数方法。
     var $proxyThis=function ($fn,$self,$super,$name) {

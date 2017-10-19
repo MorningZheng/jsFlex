@@ -13,7 +13,7 @@
         (
             function (request) {
                 if(request instanceof URLRequest)this._request=request;
-                this.super();
+                $super();
 
                 if(this._handler===null)this._handler=new XMLHttpRequest();
                 var $=[

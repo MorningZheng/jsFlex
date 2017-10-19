@@ -10,7 +10,7 @@ $package('flash.utils',
     })
 (
     function (delay, repeatCount) {
-        this.super();
+        $super();
         this._delay=delay||20;
         this._repeatCount=repeatCount||0;
     },{

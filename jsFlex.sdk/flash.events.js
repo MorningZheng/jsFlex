@@ -115,17 +115,17 @@ $package(
 
 $package('flash.events')
     .class('Event')
-    .extends((function () {
-        var $=function () {};
-        $.prototype=new Event('document.Event');
-        $.prototype.type='bridge';
-        $.__GLOBAL__={
-            initialized:{class:1,request:1,static:0,initializer:0,prototype:0},
-            prototype:$.prototype,
-            class:$,
-        };
-        return $;
-    })())
+    // .extends((function () {
+    //     var $=function () {};
+    //     $.prototype=new Event('document.Event');
+    //     $.prototype.type='bridge';
+    //     $.__GLOBAL__={
+    //         initialized:{class:1,request:1,static:0,initializer:0,prototype:0},
+    //         prototype:$.prototype,
+    //         class:$,
+    //     };
+    //     return $;
+    // })())
     .static({
         ACTIVATE:'activate',
         ADDED:'added',
@@ -188,31 +188,39 @@ $package('flash.events')
         function (type, bubbles, cancelable) {
             if(type===undefined)throw 'Event type must be a string';
 
-            var $e;
-            try{
-                $e=new Event(type,{cancelable: this._cancelable, bubbles: this._bubbles});
-            }catch(_){
-                $e = document.createEvent('Event');
-                $e.initEvent(type,this._bubbles,this._cancelable);
-            };
-            $e.__proto__=this.constructor.prototype;
-            $e.type=this.type=type;
-            $e.bubbles=this._bubbles=bubbles||false;
-            $e.cancelable=this._cancelable=cancelable||false;
+            bubbles=bubbles===undefined?false:bubbles;
+            cancelable=cancelable===undefined?false:cancelable;
 
-            return $e;
+            this._type=type;
+            this._bubbles=bubbles;
+            this._cancelable=cancelable;
+
+            //做内部转换
+            (function ($,_) {
+                _.initEvent(type,bubbles,cancelable);
+                $.__HTML_EVENT__=_;
+                _.__FLEX_EVENT__=$;
+            })(this,document.createEvent('Event'));
+
+            return this;
         },
         {
+            _type:'',
             _bubbles:false,
             _cancelable :false,
             _currentTarget:null,
             _eventPhase:1,
             _target:null,
+
+
+            get type(){return this._type;},
             get bubbles(){return this._bubbles;},
             get cancelable(){return this._cancelable;},
             get eventPhase(){return this._eventPhase;},
             get currentTarget(){return this._currentTarget;},
             get target(){return this._target;},
+
+            __HTML_EVENT__:null,
         }
     );
 
@@ -221,7 +229,7 @@ $package('flash.events')
     .class('Request')
     .extends('flash.events.Event')(
         function (type, bubbles, cancelable, value) {
-            var $e=this.super(type, bubbles, cancelable);
+            var $e=$super(type, bubbles, cancelable);
             Object.defineProperty($e,'value',{configurable: true, enumerable: true,writable:false,value:value});
             return $e;
         }
@@ -241,7 +249,7 @@ $package('fl.events')
             if(rowIndex!==undefined)this._rowIndex=rowIndex;
             if(index!==undefined)this._index=index;
             if(item!==undefined)this._item=item;
-            return this.super(type,bubbles,cancelable);
+            return $super(type,bubbles,cancelable);
         },
         {
             _columnIndex:-1,
@@ -269,7 +277,7 @@ $package('flash.events')
     .static({PROPERTY_CHANGE:'propertyChange'})
     (function (type, bubbles, cancelable,
                kind, property, oldValue, newValue, source) {
-        var $e=this.super(type, bubbles, cancelable);
+        var $e=$super(type, bubbles, cancelable);
         $e.kind = kind;
         $e.property = property;
         $e.oldValue = oldValue;
@@ -303,7 +311,7 @@ $package('flash.events')
         get	TIMER_COMPLETE(){return 'timerComplete';},
     })(
         function () {
-            return this.super.apply(this,arguments);
+            return $super.apply(this,arguments);
         }
     );
 
@@ -317,7 +325,7 @@ $package('flash.events')
             get	VALUE_COMMIT(){return 'valueCommit';},
         })(
             function () {
-                return this.super.apply(this,arguments);
+                return $super.apply(this,arguments);
             }
         );
 })();

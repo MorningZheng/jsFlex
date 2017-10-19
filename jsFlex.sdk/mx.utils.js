@@ -1697,6 +1697,13 @@
                             var _=data.name.substr(6);
                             if(namespace[0].data.hasOwnProperty(_)===false)namespace[0].data[_]={prefix:_,uri:data.value.split('.')};
                             delete node.attributes[data.name];
+                        }else {
+                            //记录属性及小写关系
+                            if(!this.attributes)this.attributes={};
+                            var n=node.nodeName.toUpperCase();
+                            if(this.attributes.hasOwnProperty(n)===false)this.attributes[n]={};
+                            var m=data.name.toLowerCase();
+                            if(this.attributes[n].hasOwnProperty(m)===false)this.attributes[n][m]=data.name;
                         };
                     };
                     $.onopentag =function(node) {
@@ -1918,7 +1925,7 @@
                             loader.open('get',location.href);
                             loader.send();
                         },
-                        each:function (node) {
+                        each:function (node,attr) {
                             var ele;
                             if(node.hasOwnProperty('flexElementInstance')){
                                 ele=node.flexElementInstance;
@@ -1932,10 +1939,12 @@
                                     if(node.id)ele.id=node.id;
                                 }else{
                                     var _=sax.tags[node.nodeName];
+                                    var prop=attr[node.nodeName]||{};
+
                                     ele=new _.classFactory();
                                     Array.prototype.forEach.call(node.attributes,function (a) {
                                         var val=a.nodeValue;
-                                        a=a.nodeName;
+                                        a=prop[a.nodeName]||a.nodeName;
                                         if(a in ele){
                                             try{val=JSON.parse(val)}catch(e){};
                                             ele[a]=val;
@@ -1951,7 +1960,7 @@
                                     _=null;
                                 };
                                 while(node.childNodes[0]){
-                                    ele.addElement(local.each(node.childNodes[0]));
+                                    ele.addElement(local.each(node.childNodes[0],attr));
                                 };
                             }else{
                                 ele=node;
@@ -2003,7 +2012,7 @@
                                 .reduce(function (p,_) {
                                     return p.concat(Array.prototype.map.call(document.getElementsByTagName(_.nodeName),function (node) {
                                         var $=node.parentNode;
-                                        node=local.each(node);
+                                        node=local.each(node,sax.attributes);
                                         node.commitProperties();
                                         $.appendChild(node.htmlElementInstance);
                                         return node;

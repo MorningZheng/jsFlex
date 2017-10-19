@@ -2,7 +2,7 @@
  * Created by morning on 2017/6/21.
  */
 (function () {
-    $package(
+    var $rpc=$package(
         'vsystem.core',
         URLLoader=$import('flash.net.URLLoader'),
         URLRequest=$import('flash.net.URLRequest')
@@ -14,10 +14,10 @@
         })(
             function (url,api) {
                 if(api===undefined)api=api||url;
-                else vsystem.core.rpc.url=url;
+                else $rpc.url=url;
 
-                if((this instanceof vsystem.core.rpc)===false){
-                    var $=new vsystem.core.rpc();
+                if((this instanceof $rpc)===false){
+                    var $=new $rpc();
                     $.api=api;
                     return $;
                 }else{
@@ -58,12 +58,12 @@
                     };
 
                     this.then(function ($t,$r) {
-                        var $=new URLRequest(this.constructor.url+'?z=0&s='+String(Math.random() * 65535));
+                        var $=new URLRequest($rpc.url+'?z=0&s='+String(Math.random() * 65535));
                         $.data='["'+this._api+'",'+JSON.stringify(this._args)+']';
                         $.method='POST';
                         this._loader.load($);
                     }.bind(this));
-                    return this.super.call();
+                    return $super.call();
                 },
             }
         );
